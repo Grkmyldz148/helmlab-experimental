@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Color Space Benchmark</title>
+<style>
+:root { --bg: #ffffff; --fg: #111827; --muted: #6b7280; --border: #e5e7eb;
+        --best: #dcfce7; --worst: #fee2e2; --accent: #6366f1; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       color: var(--fg); background: var(--bg); line-height: 1.6;
+       max-width: 1200px; margin: 0 auto; padding: 20px; }
+h1 { font-size: 1.8rem; margin-bottom: 8px; }
+h2 { font-size: 1.3rem; margin-top: 32px; margin-bottom: 12px;
+     border-bottom: 2px solid var(--accent); padding-bottom: 4px; }
+h3 { font-size: 1.05rem; margin-top: 16px; margin-bottom: 6px; color: var(--muted); }
+.subtitle { color: var(--muted); margin-bottom: 24px; }
+table { border-collapse: collapse; width: 100%; margin-bottom: 16px; font-size: 0.9rem; }
+th, td { padding: 8px 12px; border: 1px solid var(--border); text-align: right; }
+th { background: #f9fafb; text-align: left; font-weight: 600; }
+td:first-child { text-align: left; font-weight: 500; }
+td.best { background: var(--best); font-weight: 700; }
+td.worst { background: var(--worst); }
+td.ref { background: #f3f4f6; color: #9ca3af; font-style: italic; }
+.scorecard { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+             gap: 12px; margin-bottom: 24px; }
+.score-card { border: 1px solid var(--border); border-radius: 8px; padding: 16px;
+              text-align: center; }
+.score-card .value { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.score-card .label { font-size: 0.85rem; color: var(--muted); }
+.radar { width: 100%; max-width: 500px; display: block; margin: 16px auto; }
+.section { margin-bottom: 32px; }
+.h2h-table td { text-align: center; }
+.h2h-win { background: var(--best); font-weight: 700; }
+.h2h-lose { background: var(--worst); }
+</style>
+</head>
+<body>
+<h1>Color Space Benchmark</h1>
+<p class="subtitle">Generated 2026-03-26 20:44 | Spaces: OKLab, GenSpace+Enrich(pcg_018_048_034.json) | 50 metrics</p>
+<h2>Scorecard</h2>
+<div class="scorecard">
+<div class="score-card"><div class="value">30</div><div class="label">OKLab solo wins (+7 shared)</div></div>
+<div class="score-card"><div class="value">13</div><div class="label">GenSpace+Enrich(pcg_018_048_034.json) solo wins (+7 shared)</div></div>
+</div>
+<h2>Head-to-Head</h2>
+<table class="h2h-table"><tr><th></th><th>OKLab</th><th>GenSpace+Enrich(pcg_018_048_034.json)</th></tr>
+<tr><td><strong>OKLab</strong></td><td>-</td><td class="h2h-win">24-10 (7t)</td></tr>
+<tr><td><strong>GenSpace+Enrich(pcg_018_048_034.json)</strong></td><td class="h2h-lose">10-24 (7t)</td><td>-</td></tr>
+</table>
+<h3>Performance Radar (outer = better)</h3>
+<svg viewBox="0 0 480 480" class="radar">
+  <polygon points="240.0,204.0 258.0,208.8 271.2,222.0 276.0,240.0 271.2,258.0 258.0,271.2 240.0,276.0 222.0,271.2 208.8,258.0 204.0,240.0 208.8,222.0 222.0,208.8" fill="none" stroke="#e5e7eb"/>
+  <polygon points="240.0,168.0 276.0,177.6 302.4,204.0 312.0,240.0 302.4,276.0 276.0,302.4 240.0,312.0 204.0,302.4 177.6,276.0 168.0,240.0 177.6,204.0 204.0,177.6" fill="none" stroke="#e5e7eb"/>
+  <polygon points="240.0,132.0 294.0,146.5 333.5,186.0 348.0,240.0 333.5,294.0 294.0,333.5 240.0,348.0 186.0,333.5 146.5,294.0 132.0,240.0 146.5,186.0 186.0,146.5" fill="none" stroke="#e5e7eb"/>
+  <polygon points="240.0,96.0 312.0,115.3 364.7,168.0 384.0,240.0 364.7,312.0 312.0,364.7 240.0,384.0 168.0,364.7 115.3,312.0 96.0,240.0 115.3,168.0 168.0,115.3" fill="none" stroke="#e5e7eb"/>
+  <polygon points="240.0,60.0 330.0,84.1 395.9,150.0 420.0,240.0 395.9,330.0 330.0,395.9 240.0,420.0 150.0,395.9 84.1,330.0 60.0,240.0 84.1,150.0 150.0,84.1" fill="none" stroke="#e5e7eb"/>
+  <line x1="240.0" y1="240.0" x2="240.0" y2="60.0" stroke="#d1d5db"/>
+  <text x="240.0" y="30.0" text-anchor="middle" font-size="10" fill="#6b7280">Round-trip sRGB 16.7M</text>
+  <line x1="240.0" y1="240.0" x2="330.0" y2="84.1" stroke="#d1d5db"/>
+  <text x="345.0" y="58.1" text-anchor="start" font-size="10" fill="#6b7280">Round-trip P3 16.7M</text>
+  <line x1="240.0" y1="240.0" x2="395.9" y2="150.0" stroke="#d1d5db"/>
+  <text x="421.9" y="135.0" text-anchor="start" font-size="10" fill="#6b7280">Round-trip Rec2020 2.1</text>
+  <line x1="240.0" y1="240.0" x2="420.0" y2="240.0" stroke="#d1d5db"/>
+  <text x="450.0" y="240.0" text-anchor="start" font-size="10" fill="#6b7280">Gray ramp sRGB C*</text>
+  <line x1="240.0" y1="240.0" x2="395.9" y2="330.0" stroke="#d1d5db"/>
+  <text x="421.9" y="345.0" text-anchor="start" font-size="10" fill="#6b7280">Gray ramp pure C*</text>
+  <line x1="240.0" y1="240.0" x2="330.0" y2="395.9" stroke="#d1d5db"/>
+  <text x="345.0" y="421.9" text-anchor="start" font-size="10" fill="#6b7280">Gradient CV (mean)</text>
+  <line x1="240.0" y1="240.0" x2="240.0" y2="420.0" stroke="#d1d5db"/>
+  <text x="240.0" y="450.0" text-anchor="middle" font-size="10" fill="#6b7280">Gradient CV (p95)</text>
+  <line x1="240.0" y1="240.0" x2="150.0" y2="395.9" stroke="#d1d5db"/>
+  <text x="135.0" y="421.9" text-anchor="end" font-size="10" fill="#6b7280">Max hue drift (non-cro</text>
+  <line x1="240.0" y1="240.0" x2="84.1" y2="330.0" stroke="#d1d5db"/>
+  <text x="58.1" y="345.0" text-anchor="end" font-size="10" fill="#6b7280">Banding mean</text>
+  <line x1="240.0" y1="240.0" x2="60.0" y2="240.0" stroke="#d1d5db"/>
+  <text x="30.0" y="240.0" text-anchor="end" font-size="10" fill="#6b7280">Worst-case gradient CV</text>
+  <line x1="240.0" y1="240.0" x2="84.1" y2="150.0" stroke="#d1d5db"/>
+  <text x="58.1" y="135.0" text-anchor="end" font-size="10" fill="#6b7280">Hue RMS</text>
+  <line x1="240.0" y1="240.0" x2="150.0" y2="84.1" stroke="#d1d5db"/>
+  <text x="135.0" y="58.1" text-anchor="end" font-size="10" fill="#6b7280">sRGB valid cusps</text>
+  <polygon points="240.0,60.0 330.0,84.1 395.9,150.0 420.0,240.0 395.9,330.0 330.0,395.9 240.0,420.0 235.5,247.8 232.2,244.5 60.0,240.0 84.1,150.0 235.5,232.2" fill="#6366f1" fill-opacity="0.12" stroke="#6366f1" stroke-width="2"/>
+  <polygon points="240.0,231.0 244.5,232.2 247.8,235.5 420.0,240.0 395.9,330.0 244.5,247.8 240.0,249.0 150.0,395.9 84.1,330.0 231.0,240.0 232.2,235.5 150.0,84.1" fill="#ec4899" fill-opacity="0.12" stroke="#ec4899" stroke-width="2"/>
+  <rect x="20" y="455" width="12" height="12" fill="#6366f1"/>
+  <text x="36" y="466" font-size="12" fill="#374151">OKLab</text>
+  <rect x="150" y="455" width="12" height="12" fill="#ec4899"/>
+  <text x="166" y="466" font-size="12" fill="#374151">GenSpace+Enrich(pcg_018_048_034.json)</text>
+</svg>
+
+<div class="section">
+<h2>Numerical</h2>
+<table><tr><th>Metric</th><th>OKLab</th><th>GenSpace+Enrich(pcg_018_048_034.json)</th><th>Winner</th></tr>
+<tr><td>Round-trip sRGB 16.7M</td><td class="best">1.78e-15</td><td class="">9.57e-11</td><td>OKLab</td></tr>
+<tr><td>Round-trip P3 16.7M</td><td class="best">1.78e-15</td><td class="">9.58e-11</td><td>OKLab</td></tr>
+<tr><td>Round-trip Rec2020 2.1M</td><td class="best">1.55e-15</td><td class="">1.03e-10</td><td>OKLab</td></tr>
+</table>
+</div>
+<div class="section">
+<h2>Achromatic</h2>
+<table><tr><th>Metric</th><th>OKLab</th><th>GenSpace+Enrich(pcg_018_048_034.json)</th><th>Winner</th></tr>
+<tr><td>Gray ramp sRGB C* <small>(C*)</small></td><td class="ref">3.73e-08C* <small>(ref)</small></td><td class="best">1.94e+00C*</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+<tr><td>Gray ramp pure C* <small>(C*)</small></td><td class="ref">6.48e-08C* <small>(ref)</small></td><td class="best">2.44e+00C*</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+</table>
+</div>
+<div class="section">
+<h2>Gradient</h2>
+<table><tr><th>Metric</th><th>OKLab</th><th>GenSpace+Enrich(pcg_018_048_034.json)</th><th>Winner</th></tr>
+<tr><td>Gradient CV (mean) <small>(%)</small></td><td class="best">38.03%</td><td class="">39.05%</td><td>OKLab</td></tr>
+<tr><td>Gradient CV (p95) <small>(%)</small></td><td class="best">137.14%</td><td class="">142.32%</td><td>OKLab</td></tr>
+<tr><td>Max hue drift (non-crossing) <small>(deg)</small></td><td class="">112.7deg</td><td class="best">85.3deg</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+<tr><td>Banding mean</td><td class="">1.8</td><td class="best">1.8</td><td>TIE</td></tr>
+<tr><td>Worst-case gradient CV <small>(%)</small></td><td class="best">412.6%</td><td class="">440.7%</td><td>OKLab</td></tr>
+<tr><td>3-color gradient CV <small>(%)</small></td><td class="best">39.31%</td><td class="">40.15%</td><td>OKLab</td></tr>
+</table>
+</div>
+<div class="section">
+<h2>Hue</h2>
+<table><tr><th>Metric</th><th>OKLab</th><th>GenSpace+Enrich(pcg_018_048_034.json)</th><th>Winner</th></tr>
+<tr><td>Hue RMS <small>(deg)</small></td><td class="best">30.1deg</td><td class="">104.6deg</td><td>OKLab</td></tr>
+<tr><td>Primary L range</td><td class="best">0.516</td><td class="">0.468</td><td>OKLab</td></tr>
+</table>
+</div>
+<div class="section">
+<h2>Gamut</h2>
+<table><tr><th>Metric</th><th>OKLab</th><th>GenSpace+Enrich(pcg_018_048_034.json)</th><th>Winner</th></tr>
+<tr><td>sRGB valid cusps <small>(/360)</small></td><td class="best">294.0/360</td><td class="ref">0.0/360 <small>(ref)</small></td><td>OKLab</td></tr>
+<tr><td>sRGB mono violations</td><td class="best">87.0</td><td class="ref">0.0 <small>(ref)</small></td><td>OKLab</td></tr>
+<tr><td>sRGB cliff max <small>(%)</small></td><td class="">0.5%</td><td class="best">0.2%</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+<tr><td>Gamut volume fill <small>(%)</small></td><td class="best">1.0%</td><td class="ref">0.0% <small>(ref)</small></td><td>OKLab</td></tr>
+<tr><td>P3 valid cusps <small>(/360)</small></td><td class="best">309.0/360</td><td class="ref">0.0/360 <small>(ref)</small></td><td>OKLab</td></tr>
+<tr><td>Cusp smoothness (max jump)</td><td class="best">0.801</td><td class="ref">0.007 <small>(ref)</small></td><td>OKLab</td></tr>
+<tr><td>Rec2020 valid cusps <small>(/360)</small></td><td class="best">360.0/360</td><td class="">2.0/360</td><td>OKLab</td></tr>
+</table>
+</div>
+<div class="section">
+<h2>Special</h2>
+<table><tr><th>Metric</th><th>OKLab</th><th>GenSpace+Enrich(pcg_018_048_034.json)</th><th>Winner</th></tr>
+<tr><td>Yellow chroma</td><td class="">0.2110</td><td class="best">1.8107</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+<tr><td>Blue-White midpoint G/R</td><td class="best">1.409</td><td class="">0.964</td><td>OKLab</td></tr>
+<tr><td>Red-White midpoint G-B</td><td class="">0.062</td><td class="best">0.033</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+</table>
+</div>
+<div class="section">
+<h2>Banding</h2>
+<table><tr><th>Metric</th><th>OKLab</th><th>GenSpace+Enrich(pcg_018_048_034.json)</th><th>Winner</th></tr>
+<tr><td>Invisible gradient steps <small>(%)</small></td><td class="best">99.7%</td><td class="">99.2%</td><td>TIE</td></tr>
+<tr><td>Duplicate 8-bit steps <small>(%)</small></td><td class="">16.1%</td><td class="best">13.8%</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+</table>
+</div>
+<div class="section">
+<h2>Accessibility</h2>
+<table><tr><th>Metric</th><th>OKLab</th><th>GenSpace+Enrich(pcg_018_048_034.json)</th><th>Winner</th></tr>
+<tr><td>CVD protan min step dE <small>(dE)</small></td><td class="">0.13dE</td><td class="best">0.13dE</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+<tr><td>CVD deutan min step dE <small>(dE)</small></td><td class="best">0.16dE</td><td class="">0.13dE</td><td>OKLab</td></tr>
+</table>
+</div>
+<div class="section">
+<h2>Perceptual</h2>
+<table><tr><th>Metric</th><th>OKLab</th><th>GenSpace+Enrich(pcg_018_048_034.json)</th><th>Winner</th></tr>
+<tr><td>Hue leaf constancy <small>(deg)</small></td><td class="">73.3deg</td><td class="best">53.6deg</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+<tr><td>Munsell Value uniformity <small>(%)</small></td><td class="best">2.80%</td><td class="">19.13%</td><td>OKLab</td></tr>
+<tr><td>Munsell Hue spacing <small>(%)</small></td><td class="best">18.5%</td><td class="">316.2%</td><td>OKLab</td></tr>
+<tr><td>MacAdam isotropy <small>(ratio)</small></td><td class="best">1.99ratio</td><td class="">6.36ratio</td><td>OKLab</td></tr>
+<tr><td>Hue agreement with CIE Lab <small>(deg)</small></td><td class="best">8.5deg</td><td class="">90.1deg</td><td>OKLab</td></tr>
+</table>
+</div>
+<div class="section">
+<h2>Advanced</h2>
+<table><tr><th>Metric</th><th>OKLab</th><th>GenSpace+Enrich(pcg_018_048_034.json)</th><th>Winner</th></tr>
+<tr><td>Animation frame-to-frame CV <small>(%)</small></td><td class="best">62.2%</td><td class="">62.7%</td><td>TIE</td></tr>
+<tr><td>Jacobian condition</td><td class="best">6.49</td><td class="">1825.17</td><td>OKLab</td></tr>
+<tr><td>1000-trip RT</td><td class="best">5.01e-13</td><td class="">8.93e-08</td><td>OKLab</td></tr>
+<tr><td>8-bit exact/10K</td><td class="best">10000.0</td><td class="best">10000.0</td><td>TIE</td></tr>
+<tr><td>Channel mono violations</td><td class="ref">0 <small>(ref)</small></td><td class="best">10</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+<tr><td>Cross-gamut amplification <small>(x)</small></td><td class="best">1.0x</td><td class="">1.0x</td><td>TIE</td></tr>
+</table>
+</div>
+<div class="section">
+<h2>Application</h2>
+<table><tr><th>Metric</th><th>OKLab</th><th>GenSpace+Enrich(pcg_018_048_034.json)</th><th>Winner</th></tr>
+<tr><td>Palette L* spacing <small>(%)</small></td><td class="">78.9%</td><td class="best">74.6%</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+<tr><td>Tint/shade hue preservation <small>(deg)</small></td><td class="best">8.8deg</td><td class="">21.5deg</td><td>OKLab</td></tr>
+<tr><td>Data viz min pairwise dE <small>(dE)</small></td><td class="best">14.34dE</td><td class="ref">0.00dE <small>(ref)</small></td><td>OKLab</td></tr>
+<tr><td>Multi-stop gradient CV <small>(%)</small></td><td class="best">37.7%</td><td class="">37.8%</td><td>TIE</td></tr>
+<tr><td>WCAG midpoint contrast <small>(:1)</small></td><td class="best">2.73:1</td><td class="">2.64:1</td><td>OKLab</td></tr>
+<tr><td>Palette harmony accuracy <small>(deg)</small></td><td class="best">11.7deg</td><td class="">87.1deg</td><td>OKLab</td></tr>
+<tr><td>Photo gamut map fidelity <small>(deg)</small></td><td class="best">0.98deg</td><td class="">27.24deg</td><td>OKLab</td></tr>
+<tr><td>Eased animation CV <small>(%)</small></td><td class="">64.1%</td><td class="best">62.5%</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+<tr><td>Shade palette hue drift <small>(deg)</small></td><td class="best">8.6deg</td><td class="">27.6deg</td><td>OKLab</td></tr>
+<tr><td>Shade palette worst hue drift <small>(deg)</small></td><td class="best">20.9deg</td><td class="">44.9deg</td><td>OKLab</td></tr>
+<tr><td>Chroma preservation (no mud)</td><td class="">0.414</td><td class="best">0.416</td><td>TIE</td></tr>
+<tr><td>Muddy gradients (C drop >50%)</td><td class="">12.0</td><td class="best">10.0</td><td>GenSpace+Enrich(pcg_018_048_034.json)</td></tr>
+</table>
+</div>
+
+<hr style="margin-top:40px;border:none;border-top:1px solid var(--border)">
+<p style="font-size:0.8rem;color:var(--muted);text-align:center;margin-top:12px">
+Generated by space-test-project | 50 metrics | 2026-03-26 20:44
+</p>
+</body>
+</html>

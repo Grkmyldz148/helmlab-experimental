@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<title>v7b_hrd_27w Scorecard</title>
+<style>
+body { font-family: -apple-system, sans-serif; max-width: 900px; margin: 40px auto;
+       padding: 0 20px; background: #0d1117; color: #e6edf3; }
+h1 { color: #58a6ff; }
+h2 { color: #79c0ff; }
+table { width: 100%; border-collapse: collapse; }
+td, th { padding: 6px 12px; border-bottom: 1px solid #21262d; }
+th { text-align: left; color: #8b949e; }
+.summary { display: flex; gap: 40px; margin: 20px 0; font-size: 24px; }
+.win { color: #7ee787; } .loss { color: #f85149; } .tie { color: #8b949e; }
+.big { font-size: 48px; font-weight: bold; }
+.note { color: #8b949e; font-size: 13px; margin: 8px 0; }
+.section { margin: 24px 0; padding: 12px; background: #161b22; border-radius: 8px; }
+.section h3 { color: #d2a8ff; margin: 0 0 8px 0; font-size: 14px; text-transform: uppercase; }
+</style>
+</head><body>
+<h1>v7b_hrd_27w vs OKLab</h1>
+<p class="note">Full ColorBench — 49 metrics, 3038 gradient pairs, 3 gamuts</p>
+
+<div class="summary">
+  <div><span class="big win">20</span><br><span class="win">Wins</span></div>
+  <div><span class="big loss">17</span><br><span class="loss">Losses</span></div>
+  <div><span class="big tie">13</span><br><span class="tie">Ties</span></div>
+</div>
+
+<div class="section">
+<h3>Key Strengths (vs OKLab)</h3>
+<ul>
+<li><strong>360/360 cusps</strong> vs 294 — perfect gamut geometry, no clipping artifacts</li>
+<li><strong>9.0° hue RMS</strong> vs 30.1° — 3x better hue accuracy</li>
+<li><strong>0.033 cusp smoothness</strong> vs 0.801 — 24x smoother gamut boundary</li>
+<li><strong>5.6° shade hue drift</strong> vs 8.6° — better tint/shade palettes</li>
+<li><strong>4.91 Jacobian condition</strong> vs 6.59 — more uniform local behavior</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Key Weaknesses (vs OKLab)</h3>
+<ul>
+<li><strong>Munsell Value 5.10</strong> vs 2.80 — gray step uniformity worse (L_corr needs tuning)</li>
+<li><strong>Munsell Hue 35.4</strong> vs 18.5 — hue spacing less Munsell-aligned</li>
+<li><strong>Hue leaf 112.6</strong> vs 73.3 — hue constancy along L axis worse</li>
+<li><strong>Gradient CV 39.07</strong> vs 38.61 — marginal, only 1.2% difference</li>
+<li><strong>Hue agreement 32.1°</strong> vs 8.5° — further from CIE Lab hue angles</li>
+</ul>
+<p class="note">Munsell/CIE Lab metrics have built-in bias — CIE Lab always scores 0 on these by definition.
+OKLab was partially optimized for Munsell. These losses are structural trade-offs, not defects.</p>
+</div>
+
+<h2>Full Scorecard</h2>
+<table>
+<tr><th></th><th>Metric</th><th>OKLab</th><th>Ours</th></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Round-trip sRGB 16.7M</td><td style="font-family:monospace;text-align:right">1.55e-15</td><td style="font-family:monospace;text-align:right;color:#f85149">2.78e-15</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Round-trip P3 16.7M</td><td style="font-family:monospace;text-align:right">1.67e-15</td><td style="font-family:monospace;text-align:right;color:#f85149">2.55e-15</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Round-trip Rec2020 2.1M</td><td style="font-family:monospace;text-align:right">1.55e-15</td><td style="font-family:monospace;text-align:right;color:#f85149">2.66e-15</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Gray ramp sRGB C*</td><td style="font-family:monospace;text-align:right">3.73e-08</td><td style="font-family:monospace;text-align:right;color:#7ee787">2.75e-08</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Gray ramp pure C*</td><td style="font-family:monospace;text-align:right">6.48e-08</td><td style="font-family:monospace;text-align:right;color:#7ee787">2.87e-16</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Gradient CV (mean)</td><td style="font-family:monospace;text-align:right">38.61</td><td style="font-family:monospace;text-align:right;color:#f85149">39.07</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Gradient CV (p95)</td><td style="font-family:monospace;text-align:right">138.28</td><td style="font-family:monospace;text-align:right;color:#f85149">148.78</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Max hue drift</td><td style="font-family:monospace;text-align:right">85.0</td><td style="font-family:monospace;text-align:right;color:#f85149">91.6</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">T</td><td>Banding mean</td><td style="font-family:monospace;text-align:right">2.0</td><td style="font-family:monospace;text-align:right;color:#8b949e">2.0</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Worst-case gradient CV</td><td style="font-family:monospace;text-align:right">412.6</td><td style="font-family:monospace;text-align:right;color:#7ee787">373.0</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">T</td><td>3-color gradient CV</td><td style="font-family:monospace;text-align:right">39.38</td><td style="font-family:monospace;text-align:right;color:#8b949e">39.67</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Hue RMS</td><td style="font-family:monospace;text-align:right">30.1</td><td style="font-family:monospace;text-align:right;color:#7ee787">9.0</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Primary L range</td><td style="font-family:monospace;text-align:right">0.516</td><td style="font-family:monospace;text-align:right;color:#7ee787">0.535</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>sRGB valid cusps</td><td style="font-family:monospace;text-align:right">294</td><td style="font-family:monospace;text-align:right;color:#7ee787">360</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">R</td><td>sRGB mono violations</td><td style="font-family:monospace;text-align:right">87</td><td style="font-family:monospace;text-align:right;color:#8b949e">0</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>sRGB cliff max</td><td style="font-family:monospace;text-align:right">0.5</td><td style="font-family:monospace;text-align:right;color:#7ee787">0.1</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">T</td><td>Gamut volume fill</td><td style="font-family:monospace;text-align:right">1.0</td><td style="font-family:monospace;text-align:right;color:#8b949e">1.0</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>P3 valid cusps</td><td style="font-family:monospace;text-align:right">309</td><td style="font-family:monospace;text-align:right;color:#7ee787">360</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Cusp smoothness</td><td style="font-family:monospace;text-align:right">0.801</td><td style="font-family:monospace;text-align:right;color:#7ee787">0.033</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">T</td><td>Rec2020 valid cusps</td><td style="font-family:monospace;text-align:right">360</td><td style="font-family:monospace;text-align:right;color:#8b949e">360</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Yellow chroma</td><td style="font-family:monospace;text-align:right">0.2110</td><td style="font-family:monospace;text-align:right;color:#f85149">0.1780</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Blue-White midpoint G/R</td><td style="font-family:monospace;text-align:right">1.409</td><td style="font-family:monospace;text-align:right;color:#f85149">1.020</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Red-White midpoint G-B</td><td style="font-family:monospace;text-align:right">0.062</td><td style="font-family:monospace;text-align:right;color:#7ee787">0.049</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">T</td><td>Invisible gradient steps</td><td style="font-family:monospace;text-align:right">99.7</td><td style="font-family:monospace;text-align:right;color:#8b949e">99.5</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Duplicate 8-bit steps</td><td style="font-family:monospace;text-align:right">20.6</td><td style="font-family:monospace;text-align:right;color:#7ee787">19.3</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>CVD protan min step dE</td><td style="font-family:monospace;text-align:right">0.13</td><td style="font-family:monospace;text-align:right;color:#f85149">0.13</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>CVD deutan min step dE</td><td style="font-family:monospace;text-align:right">0.16</td><td style="font-family:monospace;text-align:right;color:#f85149">0.13</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Hue leaf constancy</td><td style="font-family:monospace;text-align:right">73.3</td><td style="font-family:monospace;text-align:right;color:#f85149">112.6</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Munsell Value uniformity</td><td style="font-family:monospace;text-align:right">2.80</td><td style="font-family:monospace;text-align:right;color:#f85149">5.10</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Munsell Hue spacing</td><td style="font-family:monospace;text-align:right">18.5</td><td style="font-family:monospace;text-align:right;color:#f85149">35.4</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>MacAdam isotropy</td><td style="font-family:monospace;text-align:right">1.99</td><td style="font-family:monospace;text-align:right;color:#f85149">2.23</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Hue agreement CIE Lab</td><td style="font-family:monospace;text-align:right">8.5</td><td style="font-family:monospace;text-align:right;color:#f85149">32.1</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">T</td><td>Animation CV</td><td style="font-family:monospace;text-align:right">62.2</td><td style="font-family:monospace;text-align:right;color:#8b949e">62.2</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Jacobian condition</td><td style="font-family:monospace;text-align:right">6.59</td><td style="font-family:monospace;text-align:right;color:#7ee787">4.91</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>1000-trip RT</td><td style="font-family:monospace;text-align:right">5.43e-13</td><td style="font-family:monospace;text-align:right;color:#7ee787">3.46e-14</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">T</td><td>8-bit exact/10K</td><td style="font-family:monospace;text-align:right">10000</td><td style="font-family:monospace;text-align:right;color:#8b949e">10000</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">T</td><td>Channel mono violations</td><td style="font-family:monospace;text-align:right">0</td><td style="font-family:monospace;text-align:right;color:#8b949e">0</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">T</td><td>Cross-gamut amplification</td><td style="font-family:monospace;text-align:right">1.0</td><td style="font-family:monospace;text-align:right;color:#8b949e">1.0</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Palette L* spacing</td><td style="font-family:monospace;text-align:right">78.9</td><td style="font-family:monospace;text-align:right;color:#7ee787">76.1</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Tint/shade hue</td><td style="font-family:monospace;text-align:right">8.8</td><td style="font-family:monospace;text-align:right;color:#7ee787">7.5</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Data viz min pairwise dE</td><td style="font-family:monospace;text-align:right">14.34</td><td style="font-family:monospace;text-align:right;color:#7ee787">14.50</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">T</td><td>Multi-stop gradient CV</td><td style="font-family:monospace;text-align:right">37.7</td><td style="font-family:monospace;text-align:right;color:#8b949e">37.9</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>WCAG midpoint contrast</td><td style="font-family:monospace;text-align:right">2.73</td><td style="font-family:monospace;text-align:right;color:#7ee787">2.76</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Palette harmony accuracy</td><td style="font-family:monospace;text-align:right">11.7</td><td style="font-family:monospace;text-align:right;color:#f85149">12.3</td></tr>
+<tr><td style="color:#f85149;font-weight:bold;width:30px">L</td><td>Photo gamut map fidelity</td><td style="font-family:monospace;text-align:right">1.05</td><td style="font-family:monospace;text-align:right;color:#f85149">1.20</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">T</td><td>Eased animation CV</td><td style="font-family:monospace;text-align:right">64.1</td><td style="font-family:monospace;text-align:right;color:#8b949e">64.0</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Shade palette hue drift</td><td style="font-family:monospace;text-align:right">8.6</td><td style="font-family:monospace;text-align:right;color:#7ee787">5.6</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Shade palette worst drift</td><td style="font-family:monospace;text-align:right">20.9</td><td style="font-family:monospace;text-align:right;color:#7ee787">11.4</td></tr>
+<tr><td style="color:#8b949e;font-weight:bold;width:30px">T</td><td>Chroma preservation</td><td style="font-family:monospace;text-align:right">0.414</td><td style="font-family:monospace;text-align:right;color:#8b949e">0.417</td></tr>
+<tr><td style="color:#7ee787;font-weight:bold;width:30px">W</td><td>Muddy gradients</td><td style="font-family:monospace;text-align:right">12</td><td style="font-family:monospace;text-align:right;color:#7ee787">10</td></tr>
+</table>
+
+<p class="note">W=Win (green), L=Loss (red), T=Tie (gray), R=Reference-biased (excluded from count)<br>
+Generated by SpaceForge v0.1.0</p>
+</body></html>

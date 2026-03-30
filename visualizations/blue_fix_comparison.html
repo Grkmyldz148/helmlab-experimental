@@ -1,0 +1,14 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Blue Fix Comparison</title>
+<style>body{font-family:sans-serif;background:#0d1117;color:#e6edf3;padding:40px;max-width:900px;margin:0 auto}
+h1{color:#58a6ff}h2{color:#79c0ff}</style></head><body>
+<h1>Blue→White Gradient Fix</h1>
+<h2>Comparison</h2>
+<div style="margin:4px 0"><span style="display:inline-block;width:120px;font-size:12px;color:#8b949e">S2 (current)</span><div style="display:inline-block;width:600px;height:30px;border-radius:4px;background:linear-gradient(to right,#0000fe 0%, #2426ff 4%, #3639ff 8%, #4447ff 12%, #5154ff 17%, #5c5fff 21%, #666aff 25%, #7074ff 29%, #7a7dff 33%, #8386ff 38%, #8c8fff 42%, #9598ff 46%, #9da0ff 50%, #a6a9ff 54%, #aeb1ff 58%, #b6b9ff 62%, #bfc1ff 67%, #c7c9ff 71%, #cfd1ff 75%, #d7d8ff 79%, #dfe0ff 83%, #e7e8ff 88%, #efefff 92%, #f7f7ff 96%, #fefeff 100%)"></div></div><div style="margin:4px 0"><span style="display:inline-block;width:120px;font-size:12px;color:#8b949e">S2 + blue fix</span><div style="display:inline-block;width:600px;height:30px;border-radius:4px;background:linear-gradient(to right,#4d00ec 0%, #5700ee 4%, #611aef 8%, #6b2ff0 12%, #743ff1 17%, #7d4cf2 21%, #8657f2 25%, #8e62f3 29%, #956df5 33%, #9c77f6 38%, #a281f8 42%, #a98bf9 46%, #b094fa 50%, #b79efb 54%, #bda7fc 58%, #c4b0fd 62%, #cbb9fe 67%, #d1c2fe 71%, #d8cbff 75%, #ded3ff 79%, #e5dcff 83%, #ebe5ff 88%, #f2edff 92%, #f8f6ff 96%, #fffefe 100%)"></div></div><div style="margin:4px 0"><span style="display:inline-block;width:120px;font-size:12px;color:#8b949e">OKLab</span><div style="display:inline-block;width:600px;height:30px;border-radius:4px;background:linear-gradient(to right,#0000ff 0%, #0027ff 4%, #013bff 8%, #0c49ff 12%, #1956ff 17%, #2461ff 21%, #306cff 25%, #3b76ff 29%, #467fff 33%, #5188ff 38%, #5d91ff 42%, #689aff 46%, #73a2ff 50%, #7eaaff 54%, #8ab2ff 58%, #95baff 62%, #a0c2ff 67%, #accaff 71%, #b8d2ff 75%, #c3d9ff 79%, #cfe1ff 83%, #dbe8ff 88%, #e7f0ff 92%, #f3f7ff 96%, #fffefe 100%)"></div></div>
+<p style="color:#8b949e;font-size:12px">Blue fix: a += 0.035 * gaussian(hue, center=250°, sigma=40°) * chroma_weight</p>
+
+<h2>Midpoint Comparison</h2>
+<div style="display:flex;gap:20px">
+<div style="width:100px;height:100px;border-radius:8px;background:#9da0ff"><br><center style="font-size:10px">S2<br>#9da0ff</center></div><div style="width:100px;height:100px;border-radius:8px;background:#b094fa"><br><center style="font-size:10px">S2+fix<br>#b094fa</center></div><div style="width:100px;height:100px;border-radius:8px;background:#73a2ff"><br><center style="font-size:10px">OKLab<br>#73a2ff</center></div>
+</div>
+</body></html>

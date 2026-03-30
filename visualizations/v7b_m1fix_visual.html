@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SpaceForge Visual Report — v7b S2 + M1 Blue Fix (M1[0,2]=-1.00)</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       max-width: 1000px; margin: 40px auto; padding: 0 20px;
+       background: #0d1117; color: #e6edf3; }
+h1 { color: #58a6ff; }
+h2 { color: #79c0ff; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+.gradient-strips { margin: 24px 0; }
+.grad-row { display: flex; align-items: center; gap: 12px; margin: 6px 0; }
+.grad-label { min-width: 130px; font-size: 13px; color: #8b949e; text-align: right; }
+.grad-row > div:not(.grad-pair) { flex: 1; }
+.grad-pair { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.grad-strip { position: relative; }
+.grad-tag { position: absolute; right: 4px; top: 2px; font-size: 9px; color: #0d1117;
+             background: rgba(255,255,255,0.6); padding: 1px 4px; border-radius: 2px; }
+.gamut-cusps, .hue-wheel { margin: 32px 0; }
+svg { display: block; margin: 0 auto; }
+.meta { color: #8b949e; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<h1>SpaceForge Visual Report</h1>
+<p class="meta">Space: <strong>v7b S2 + M1 Blue Fix (M1[0,2]=-1.00)</strong></p>
+
+<div class="gradient-strips"><h2>Gradient Strips</h2><div class="grad-row"><span class="grad-label">Red → White</span><div class="grad-pair"><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #ff0000 0.0%, #ff130d 1.6%, #ff1f16 3.2%, #ff271d 4.8%, #ff2e24 6.3%, #ff3529 7.9%, #ff3b2e 9.5%, #ff4033 11.1%, #ff4537 12.7%, #ff4a3c 14.3%, #ff4e40 15.9%, #ff5344 17.5%, #ff5748 19.0%, #ff5b4c 20.6%, #ff5f50 22.2%, #ff6354 23.8%, #ff6758 25.4%, #ff6b5b 27.0%, #ff6e5f 28.6%, #ff7263 30.2%, #ff7666 31.7%, #ff796a 33.3%, #ff7d6e 34.9%, #ff8071 36.5%, #ff8475 38.1%, #ff8778 39.7%, #ff8b7c 41.3%, #ff8e7f 42.9%, #ff9183 44.4%, #ff9587 46.0%, #ff988a 47.6%, #ff9b8e 49.2%, #ff9e91 50.8%, #ffa295 52.4%, #ffa598 54.0%, #ffa89c 55.6%, #ffab9f 57.1%, #ffaea3 58.7%, #ffb2a6 60.3%, #ffb5aa 61.9%, #ffb8ad 63.5%, #ffbbb1 65.1%, #ffbeb4 66.7%, #ffc1b8 68.3%, #ffc4bb 69.8%, #ffc8bf 71.4%, #ffcbc2 73.0%, #ffcec6 74.6%, #ffd1c9 76.2%, #ffd4cd 77.8%, #ffd7d1 79.4%, #ffdad4 81.0%, #ffddd8 82.5%, #ffe0db 84.1%, #ffe3df 85.7%, #ffe6e2 87.3%, #ffeae6 88.9%, #ffede9 90.5%, #fff0ed 92.1%, #fff3f1 93.7%, #fff6f4 95.2%, #fff9f8 96.8%, #fffcfb 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">SpaceForge</div></div><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #ff0000 0.0%, #ff150e 1.6%, #ff2117 3.2%, #ff2a1f 4.8%, #ff3225 6.3%, #ff392b 7.9%, #ff3f30 9.5%, #ff4435 11.1%, #ff4939 12.7%, #ff4e3e 14.3%, #ff5342 15.9%, #ff5746 17.5%, #ff5c4a 19.0%, #ff604e 20.6%, #ff6452 22.2%, #ff6856 23.8%, #ff6c5a 25.4%, #ff705e 27.0%, #ff7361 28.6%, #ff7765 30.2%, #ff7b69 31.7%, #ff7e6c 33.3%, #ff8270 34.9%, #ff8573 36.5%, #ff8877 38.1%, #ff8c7a 39.7%, #ff8f7e 41.3%, #ff9281 42.9%, #ff9685 44.4%, #ff9988 46.0%, #ff9c8c 47.6%, #ff9f8f 49.2%, #ffa393 50.8%, #ffa696 52.4%, #ffa99a 54.0%, #ffac9d 55.6%, #ffafa1 57.1%, #ffb2a4 58.7%, #ffb5a8 60.3%, #ffb8ab 61.9%, #ffbbaf 63.5%, #ffbeb2 65.1%, #ffc1b6 66.7%, #ffc4b9 68.3%, #ffc7bd 69.8%, #ffcac0 71.4%, #ffcdc4 73.0%, #ffd0c7 74.6%, #ffd3ca 76.2%, #ffd6ce 77.8%, #ffd9d1 79.4%, #ffdcd5 81.0%, #ffdfd8 82.5%, #ffe2dc 84.1%, #ffe5df 85.7%, #ffe8e3 87.3%, #ffebe6 88.9%, #ffeeea 90.5%, #fff1ed 92.1%, #fff3f1 93.7%, #fff6f4 95.2%, #fff9f8 96.8%, #fffcfb 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">OKLab</div></div></div></div>
+<div class="grad-row"><span class="grad-label">Green → White</span><div class="grad-pair"><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #00ff00 0.0%, #1aff17 1.6%, #28ff24 3.2%, #32ff2d 4.8%, #3aff35 6.3%, #41ff3c 7.9%, #48ff42 9.5%, #4eff48 11.1%, #53ff4d 12.7%, #58ff52 14.3%, #5dff57 15.9%, #62ff5c 17.5%, #67ff60 19.0%, #6bff64 20.6%, #6fff68 22.2%, #73ff6c 23.8%, #77ff70 25.4%, #7bff74 27.0%, #7fff78 28.6%, #82ff7c 30.2%, #86ff7f 31.7%, #89ff83 33.3%, #8dff86 34.9%, #90ff8a 36.5%, #93ff8d 38.1%, #97ff90 39.7%, #9aff93 41.3%, #9dff97 42.9%, #a0ff9a 44.4%, #a3ff9d 46.0%, #a6ffa0 47.6%, #a9ffa3 49.2%, #acffa6 50.8%, #afffaa 52.4%, #b2ffad 54.0%, #b5ffb0 55.6%, #b8ffb3 57.1%, #bbffb6 58.7%, #beffb9 60.3%, #c0ffbc 61.9%, #c3ffbe 63.5%, #c6ffc1 65.1%, #c9ffc4 66.7%, #cbffc7 68.3%, #ceffca 69.8%, #d1ffcd 71.4%, #d3ffd0 73.0%, #d6ffd3 74.6%, #d9ffd5 76.2%, #dbffd8 77.8%, #deffdb 79.4%, #e1ffde 81.0%, #e3ffe1 82.5%, #e6ffe3 84.1%, #e8ffe6 85.7%, #ebffe9 87.3%, #edffec 88.9%, #f0ffef 90.5%, #f3fff1 92.1%, #f5fff4 93.7%, #f8fff7 95.2%, #fafffa 96.8%, #fdfffc 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">SpaceForge</div></div><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #00ff00 0.0%, #1bff18 1.6%, #29ff25 3.2%, #33ff2e 4.8%, #3cff36 6.3%, #43ff3d 7.9%, #4aff43 9.5%, #50ff49 11.1%, #56ff4f 12.7%, #5bff54 14.3%, #60ff58 15.9%, #65ff5d 17.5%, #69ff61 19.0%, #6eff66 20.6%, #72ff6a 22.2%, #76ff6e 23.8%, #7aff72 25.4%, #7eff76 27.0%, #81ff79 28.6%, #85ff7d 30.2%, #89ff80 31.7%, #8cff84 33.3%, #90ff87 34.9%, #93ff8b 36.5%, #96ff8e 38.1%, #99ff91 39.7%, #9dff95 41.3%, #a0ff98 42.9%, #a3ff9b 44.4%, #a6ff9e 46.0%, #a9ffa1 47.6%, #acffa4 49.2%, #afffa8 50.8%, #b2ffab 52.4%, #b4ffae 54.0%, #b7ffb1 55.6%, #baffb4 57.1%, #bdffb7 58.7%, #c0ffb9 60.3%, #c2ffbc 61.9%, #c5ffbf 63.5%, #c8ffc2 65.1%, #caffc5 66.7%, #cdffc8 68.3%, #d0ffcb 69.8%, #d2ffce 71.4%, #d5ffd0 73.0%, #d8ffd3 74.6%, #daffd6 76.2%, #ddffd9 77.8%, #dfffdc 79.4%, #e2ffde 81.0%, #e4ffe1 82.5%, #e7ffe4 84.1%, #e9ffe7 85.7%, #ecffe9 87.3%, #eeffec 88.9%, #f1ffef 90.5%, #f3fff2 92.1%, #f5fff4 93.7%, #f8fff7 95.2%, #fafffa 96.8%, #fdfffc 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">OKLab</div></div></div></div>
+<div class="grad-row"><span class="grad-label">Blue → White</span><div class="grad-pair"><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #0000ff 0.0%, #0017ff 1.6%, #0024ff 3.2%, #012dff 4.8%, #0335ff 6.3%, #073cff 7.9%, #0b42ff 9.5%, #1048ff 11.1%, #144dff 12.7%, #1953ff 14.3%, #1d57ff 15.9%, #215cff 17.5%, #2661ff 19.0%, #2a65ff 20.6%, #2e69ff 22.2%, #326dff 23.8%, #3771ff 25.4%, #3b75ff 27.0%, #3f79ff 28.6%, #437dff 30.2%, #4880ff 31.7%, #4c84ff 33.3%, #5088ff 34.9%, #548bff 36.5%, #598fff 38.1%, #5d92ff 39.7%, #6195ff 41.3%, #6599ff 42.9%, #699cff 44.4%, #6e9fff 46.0%, #72a2ff 47.6%, #76a5ff 49.2%, #7aa9ff 50.8%, #7facff 52.4%, #83afff 54.0%, #87b2ff 55.6%, #8bb5ff 57.1%, #8fb8ff 58.7%, #94bbff 60.3%, #98beff 61.9%, #9cc1ff 63.5%, #a0c4ff 65.1%, #a5c6ff 66.7%, #a9c9ff 68.3%, #adccff 69.8%, #b2cfff 71.4%, #b6d2ff 73.0%, #bad5ff 74.6%, #bed7ff 76.2%, #c3daff 77.8%, #c7ddff 79.4%, #cbdfff 81.0%, #d0e2ff 82.5%, #d4e5ff 84.1%, #d8e8ff 85.7%, #dceaff 87.3%, #e1edff 88.9%, #e5efff 90.5%, #e9f2ff 92.1%, #eef5ff 93.7%, #f2f7ff 95.2%, #f6faff 96.8%, #fbfcff 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">SpaceForge</div></div><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #0000ff 0.0%, #0016ff 1.6%, #0022ff 3.2%, #002bff 4.8%, #0033ff 6.3%, #013aff 7.9%, #0440ff 9.5%, #0845ff 11.1%, #0d4bff 12.7%, #1250ff 14.3%, #1754ff 15.9%, #1b59ff 17.5%, #205dff 19.0%, #2461ff 20.6%, #2966ff 22.2%, #2d6aff 23.8%, #316dff 25.4%, #3671ff 27.0%, #3a75ff 28.6%, #3e79ff 30.2%, #427cff 31.7%, #4780ff 33.3%, #4b83ff 34.9%, #4f87ff 36.5%, #538aff 38.1%, #588eff 39.7%, #5c91ff 41.3%, #6094ff 42.9%, #6598ff 44.4%, #699bff 46.0%, #6d9eff 47.6%, #71a1ff 49.2%, #76a4ff 50.8%, #7aa7ff 52.4%, #7eabff 54.0%, #83aeff 55.6%, #87b1ff 57.1%, #8bb4ff 58.7%, #90b7ff 60.3%, #94baff 61.9%, #98bdff 63.5%, #9dc0ff 65.1%, #a1c3ff 66.7%, #a5c6ff 68.3%, #aac9ff 69.8%, #aeccff 71.4%, #b3cfff 73.0%, #b7d1ff 74.6%, #bbd4ff 76.2%, #c0d7ff 77.8%, #c4daff 79.4%, #c9ddff 81.0%, #cde0ff 82.5%, #d2e3ff 84.1%, #d6e6ff 85.7%, #dbe8ff 87.3%, #dfebff 88.9%, #e4eeff 90.5%, #e8f1ff 92.1%, #edf4ff 93.7%, #f1f7ff 95.2%, #f6f9ff 96.8%, #fafcff 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">OKLab</div></div></div></div>
+<div class="grad-row"><span class="grad-label">Yellow → White</span><div class="grad-pair"><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #ffff00 0.0%, #ffff19 1.6%, #ffff27 3.2%, #ffff31 4.8%, #ffff39 6.3%, #ffff40 7.9%, #ffff46 9.5%, #ffff4c 11.1%, #ffff52 12.7%, #ffff57 14.3%, #feff5c 15.9%, #feff61 17.5%, #feff65 19.0%, #feff69 20.6%, #feff6e 22.2%, #feff72 23.8%, #feff75 25.4%, #feff79 27.0%, #feff7d 28.6%, #feff81 30.2%, #feff84 31.7%, #feff88 33.3%, #feff8b 34.9%, #feff8f 36.5%, #feff92 38.1%, #feff95 39.7%, #feff98 41.3%, #feff9b 42.9%, #feff9f 44.4%, #feffa2 46.0%, #feffa5 47.6%, #feffa8 49.2%, #feffab 50.8%, #feffae 52.4%, #feffb1 54.0%, #feffb4 55.6%, #feffb7 57.1%, #feffb9 58.7%, #feffbc 60.3%, #feffbf 61.9%, #feffc2 63.5%, #feffc5 65.1%, #feffc8 66.7%, #feffca 68.3%, #feffcd 69.8%, #feffd0 71.4%, #feffd2 73.0%, #feffd5 74.6%, #feffd8 76.2%, #feffdb 77.8%, #feffdd 79.4%, #feffe0 81.0%, #feffe3 82.5%, #feffe5 84.1%, #feffe8 85.7%, #ffffea 87.3%, #ffffed 88.9%, #fffff0 90.5%, #fffff2 92.1%, #fffff5 93.7%, #fffff7 95.2%, #fffffa 96.8%, #fffffc 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">SpaceForge</div></div><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #ffff00 0.0%, #ffff1b 1.6%, #ffff28 3.2%, #ffff33 4.8%, #ffff3b 6.3%, #ffff42 7.9%, #ffff49 9.5%, #ffff4f 11.1%, #ffff55 12.7%, #ffff5a 14.3%, #feff5f 15.9%, #feff64 17.5%, #feff68 19.0%, #feff6c 20.6%, #feff71 22.2%, #feff75 23.8%, #feff79 25.4%, #feff7c 27.0%, #feff80 28.6%, #feff84 30.2%, #feff87 31.7%, #feff8b 33.3%, #feff8e 34.9%, #feff92 36.5%, #feff95 38.1%, #feff98 39.7%, #feff9b 41.3%, #feff9e 42.9%, #feffa2 44.4%, #feffa5 46.0%, #feffa8 47.6%, #feffab 49.2%, #feffae 50.8%, #feffb1 52.4%, #feffb3 54.0%, #feffb6 55.6%, #feffb9 57.1%, #feffbc 58.7%, #feffbf 60.3%, #feffc1 61.9%, #feffc4 63.5%, #feffc7 65.1%, #feffca 66.7%, #feffcc 68.3%, #feffcf 69.8%, #feffd2 71.4%, #feffd4 73.0%, #feffd7 74.6%, #feffd9 76.2%, #feffdc 77.8%, #feffdf 79.4%, #feffe1 81.0%, #feffe4 82.5%, #feffe6 84.1%, #feffe9 85.7%, #ffffeb 87.3%, #ffffee 88.9%, #fffff0 90.5%, #fffff3 92.1%, #fffff5 93.7%, #fffff8 95.2%, #fffffa 96.8%, #fffffd 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">OKLab</div></div></div></div>
+<div class="grad-row"><span class="grad-label">Cyan → White</span><div class="grad-pair"><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #00ffff 0.0%, #1cffff 1.6%, #2affff 3.2%, #34ffff 4.8%, #3dffff 6.3%, #44ffff 7.9%, #4bffff 9.5%, #51ffff 11.1%, #57ffff 12.7%, #5cffff 14.3%, #61ffff 15.9%, #66ffff 17.5%, #6bffff 19.0%, #6fffff 20.6%, #73ffff 22.2%, #77ffff 23.8%, #7bffff 25.4%, #7fffff 27.0%, #83ffff 28.6%, #86ffff 30.2%, #8affff 31.7%, #8dffff 33.3%, #91ffff 34.9%, #94ffff 36.5%, #97ffff 38.1%, #9bffff 39.7%, #9effff 41.3%, #a1ffff 42.9%, #a4ffff 44.4%, #a7ffff 46.0%, #aaffff 47.6%, #adffff 49.2%, #b0ffff 50.8%, #b3ffff 52.4%, #b6ffff 54.0%, #b8ffff 55.6%, #bbffff 57.1%, #beffff 58.7%, #c1ffff 60.3%, #c3ffff 61.9%, #c6ffff 63.5%, #c9ffff 65.1%, #cbffff 66.7%, #ceffff 68.3%, #d1ffff 69.8%, #d3ffff 71.4%, #d6ffff 73.0%, #d8ffff 74.6%, #dbffff 76.2%, #ddffff 77.8%, #e0ffff 79.4%, #e2ffff 81.0%, #e5ffff 82.5%, #e7ffff 84.1%, #eaffff 85.7%, #ecffff 87.3%, #eeffff 88.9%, #f1ffff 90.5%, #f3ffff 92.1%, #f6ffff 93.7%, #f8ffff 95.2%, #faffff 96.8%, #fdffff 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">SpaceForge</div></div><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #00ffff 0.0%, #1dffff 1.6%, #2bffff 3.2%, #36ffff 4.8%, #3fffff 6.3%, #47ffff 7.9%, #4dffff 9.5%, #54ffff 11.1%, #59ffff 12.7%, #5fffff 14.3%, #64ffff 15.9%, #69ffff 17.5%, #6dffff 19.0%, #72ffff 20.6%, #76ffff 22.2%, #7affff 23.8%, #7effff 25.4%, #82ffff 27.0%, #86ffff 28.6%, #89ffff 30.2%, #8dffff 31.7%, #90ffff 33.3%, #94ffff 34.9%, #97ffff 36.5%, #9affff 38.1%, #9dffff 39.7%, #a1ffff 41.3%, #a4ffff 42.9%, #a7ffff 44.4%, #aaffff 46.0%, #adffff 47.6%, #b0ffff 49.2%, #b2ffff 50.8%, #b5ffff 52.4%, #b8ffff 54.0%, #bbffff 55.6%, #beffff 57.1%, #c0ffff 58.7%, #c3ffff 60.3%, #c6ffff 61.9%, #c8ffff 63.5%, #cbffff 65.1%, #cdffff 66.7%, #d0ffff 68.3%, #d2ffff 69.8%, #d5ffff 71.4%, #d7ffff 73.0%, #daffff 74.6%, #dcffff 76.2%, #dfffff 77.8%, #e1ffff 79.4%, #e3ffff 81.0%, #e6ffff 82.5%, #e8ffff 84.1%, #ebffff 85.7%, #edffff 87.3%, #efffff 88.9%, #f1ffff 90.5%, #f4ffff 92.1%, #f6ffff 93.7%, #f8ffff 95.2%, #fbffff 96.8%, #fdffff 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">OKLab</div></div></div></div>
+<div class="grad-row"><span class="grad-label">Magenta → White</span><div class="grad-pair"><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #ff00ff 0.0%, #ff18ff 1.6%, #ff25ff 3.2%, #ff2eff 4.8%, #ff36ff 6.3%, #ff3dff 7.9%, #ff44ff 9.5%, #ff49ff 11.1%, #ff4fff 12.7%, #ff54ff 14.3%, #ff59ff 15.9%, #ff5dff 17.5%, #ff62ff 19.0%, #ff66ff 20.6%, #ff6aff 22.2%, #ff6eff 23.8%, #ff72ff 25.4%, #ff76ff 27.0%, #ff79ff 28.6%, #ff7dff 30.2%, #ff81ff 31.7%, #ff84ff 33.3%, #ff88ff 34.9%, #ff8bff 36.5%, #ff8eff 38.1%, #ff92ff 39.7%, #ff95ff 41.3%, #ff98ff 42.9%, #ff9bff 44.4%, #ff9fff 46.0%, #ffa2ff 47.6%, #ffa5ff 49.2%, #ffa8ff 50.8%, #ffabff 52.4%, #ffaeff 54.0%, #ffb1ff 55.6%, #ffb4ff 57.1%, #ffb7ff 58.7%, #ffbaff 60.3%, #ffbdff 61.9%, #ffc0ff 63.5%, #ffc2ff 65.1%, #ffc5ff 66.7%, #ffc8ff 68.3%, #ffcbff 69.8%, #ffceff 71.4%, #ffd1ff 73.0%, #ffd3ff 74.6%, #ffd6ff 76.2%, #ffd9ff 77.8%, #ffdcff 79.4%, #ffdfff 81.0%, #ffe1ff 82.5%, #ffe4ff 84.1%, #ffe7ff 85.7%, #ffe9ff 87.3%, #ffecff 88.9%, #ffefff 90.5%, #fff2ff 92.1%, #fff4ff 93.7%, #fff7ff 95.2%, #fffaff 96.8%, #fffcff 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">SpaceForge</div></div><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #ff00ff 0.0%, #ff18ff 1.6%, #ff24ff 3.2%, #ff2eff 4.8%, #ff36ff 6.3%, #ff3dff 7.9%, #ff43ff 9.5%, #ff49ff 11.1%, #ff4eff 12.7%, #ff53ff 14.3%, #ff58ff 15.9%, #ff5dff 17.5%, #ff61ff 19.0%, #ff65ff 20.6%, #ff6aff 22.2%, #ff6eff 23.8%, #ff72ff 25.4%, #ff75ff 27.0%, #ff79ff 28.6%, #ff7dff 30.2%, #ff80ff 31.7%, #ff84ff 33.3%, #ff87ff 34.9%, #ff8bff 36.5%, #ff8eff 38.1%, #ff91ff 39.7%, #ff95ff 41.3%, #ff98ff 42.9%, #ff9bff 44.4%, #ff9eff 46.0%, #ffa1ff 47.6%, #ffa4ff 49.2%, #ffa7ff 50.8%, #ffaaff 52.4%, #ffadff 54.0%, #ffb0ff 55.6%, #ffb3ff 57.1%, #ffb6ff 58.7%, #ffb9ff 60.3%, #ffbcff 61.9%, #ffbfff 63.5%, #ffc2ff 65.1%, #ffc5ff 66.7%, #ffc8ff 68.3%, #ffcbff 69.8%, #ffceff 71.4%, #ffd0ff 73.0%, #ffd3ff 74.6%, #ffd6ff 76.2%, #ffd9ff 77.8%, #ffdcff 79.4%, #ffdeff 81.0%, #ffe1ff 82.5%, #ffe4ff 84.1%, #ffe7ff 85.7%, #ffe9ff 87.3%, #ffecff 88.9%, #ffefff 90.5%, #fff1ff 92.1%, #fff4ff 93.7%, #fff7ff 95.2%, #fffaff 96.8%, #fffcff 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">OKLab</div></div></div></div>
+<div class="grad-row"><span class="grad-label">Red → Blue</span><div class="grad-pair"><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #ff0000 0.0%, #fb0f13 1.6%, #f8191f 3.2%, #f42028 4.8%, #f0252f 6.3%, #ed2a35 7.9%, #e92e3b 9.5%, #e63140 11.1%, #e23445 12.7%, #de374a 14.3%, #db3a4f 15.9%, #d73c53 17.5%, #d33e57 19.0%, #d0405b 20.6%, #cc425f 22.2%, #c84363 23.8%, #c54567 25.4%, #c1466b 27.0%, #bd486f 28.6%, #ba4972 30.2%, #b64a76 31.7%, #b24b79 33.3%, #af4c7d 34.9%, #ab4c80 36.5%, #a74d84 38.1%, #a44e87 39.7%, #a04e8a 41.3%, #9c4e8e 42.9%, #994f91 44.4%, #954f94 46.0%, #914f98 47.6%, #8d4f9b 49.2%, #8a4f9e 50.8%, #864fa1 52.4%, #824fa5 54.0%, #7f4fa8 55.6%, #7b4eab 57.1%, #774eae 58.7%, #734db1 60.3%, #704db4 61.9%, #6c4cb8 63.5%, #684bbb 65.1%, #644bbe 66.7%, #604ac1 68.3%, #5d49c4 69.8%, #5948c7 71.4%, #5546ca 73.0%, #5145cd 74.6%, #4d43d1 76.2%, #4942d4 77.8%, #4540d7 79.4%, #413eda 81.0%, #3d3cdd 82.5%, #393ae0 84.1%, #3437e3 85.7%, #3034e6 87.3%, #2b31e9 88.9%, #272eec 90.5%, #222af0 92.1%, #1d25f3 93.7%, #1720f6 95.2%, #1019f9 96.8%, #080ffc 98.4%, #0000ff 100.0%)"></div><div class="grad-tag">SpaceForge</div></div><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #ff0000 0.0%, #fb1116 1.6%, #f81b23 3.2%, #f4232c 4.8%, #f02834 6.3%, #ed2d3a 7.9%, #e93141 9.5%, #e63546 11.1%, #e2384b 12.7%, #de3b50 14.3%, #db3e55 15.9%, #d7405a 17.5%, #d3425e 19.0%, #d04462 20.6%, #cc4666 22.2%, #c9486a 23.8%, #c5496e 25.4%, #c14b72 27.0%, #be4c75 28.6%, #ba4d79 30.2%, #b64e7d 31.7%, #b34f80 33.3%, #af5083 34.9%, #ac5187 36.5%, #a8518a 38.1%, #a4528e 39.7%, #a15291 41.3%, #9d5394 42.9%, #995397 44.4%, #96539a 46.0%, #92539e 47.6%, #8e53a1 49.2%, #8b53a4 50.8%, #8753a7 52.4%, #8353aa 54.0%, #7f52ad 55.6%, #7c52b0 57.1%, #7851b3 58.7%, #7451b6 60.3%, #7050b9 61.9%, #6d4fbc 63.5%, #694fbf 65.1%, #654ec2 66.7%, #614dc5 68.3%, #5d4cc8 69.8%, #5a4acb 71.4%, #5649ce 73.0%, #5247d1 74.6%, #4e46d4 76.2%, #4a44d7 77.8%, #4642da 79.4%, #4240dc 81.0%, #3d3edf 82.5%, #393ce2 84.1%, #3539e5 85.7%, #3036e8 87.3%, #2c33eb 88.9%, #272fee 90.5%, #222bf1 92.1%, #1d26f4 93.7%, #1721f6 95.2%, #111af9 96.8%, #0810fc 98.4%, #0000ff 100.0%)"></div><div class="grad-tag">OKLab</div></div></div></div>
+<div class="grad-row"><span class="grad-label">Red → Green</span><div class="grad-pair"><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #ff0000 0.0%, #fe1602 1.6%, #fd2304 3.2%, #fb2c05 4.8%, #fa3407 6.3%, #f93b09 7.9%, #f7410b 9.5%, #f6460c 11.1%, #f54c0d 12.7%, #f3510f 14.3%, #f25510 15.9%, #f05a11 17.5%, #ef5e12 19.0%, #ed6213 20.6%, #ec6614 22.2%, #ea6a14 23.8%, #e86e15 25.4%, #e77216 27.0%, #e57616 28.6%, #e37917 30.2%, #e17d17 31.7%, #e08018 33.3%, #de8418 34.9%, #dc8719 36.5%, #da8b19 38.1%, #d88e19 39.7%, #d6911a 41.3%, #d4941a 42.9%, #d2981a 44.4%, #cf9b1a 46.0%, #cd9e1a 47.6%, #cba11b 49.2%, #c8a41b 50.8%, #c6a71b 52.4%, #c3aa1b 54.0%, #c1ae1b 55.6%, #beb11b 57.1%, #bbb41b 58.7%, #b9b71a 60.3%, #b6ba1a 61.9%, #b3bd1a 63.5%, #b0c01a 65.1%, #acc31a 66.7%, #a9c519 68.3%, #a6c819 69.8%, #a2cb18 71.4%, #9ece18 73.0%, #9ad117 74.6%, #96d417 76.2%, #92d716 77.8%, #8dda15 79.4%, #89dd15 81.0%, #84e014 82.5%, #7ee313 84.1%, #78e512 85.7%, #72e810 87.3%, #6ceb0f 88.9%, #64ee0d 90.5%, #5cf10c 92.1%, #53f40a 93.7%, #48f607 95.2%, #3bf905 96.8%, #29fc03 98.4%, #00ff00 100.0%)"></div><div class="grad-tag">SpaceForge</div></div><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #ff0000 0.0%, #fe1900 1.6%, #fd2600 3.2%, #fc3000 4.8%, #fb3800 6.3%, #fa3f00 7.9%, #f94600 9.5%, #f84b00 11.1%, #f75100 12.7%, #f65600 14.3%, #f45b00 15.9%, #f36000 17.5%, #f26400 19.0%, #f16800 20.6%, #ef6c00 22.2%, #ee7000 23.8%, #ec7400 25.4%, #eb7800 27.0%, #e97c00 28.6%, #e88000 30.2%, #e68300 31.7%, #e58700 33.3%, #e38a00 34.9%, #e18d00 36.5%, #df9100 38.1%, #de9400 39.7%, #dc9700 41.3%, #da9a00 42.9%, #d89e00 44.4%, #d6a100 46.0%, #d4a400 47.6%, #d1a700 49.2%, #cfaa00 50.8%, #cdad00 52.4%, #cab000 54.0%, #c8b300 55.6%, #c5b600 57.1%, #c2b900 58.7%, #c0bc00 60.3%, #bdbe00 61.9%, #bac100 63.5%, #b7c400 65.1%, #b3c700 66.7%, #b0ca00 68.3%, #adcc00 69.8%, #a9cf00 71.4%, #a5d200 73.0%, #a1d500 74.6%, #9dd700 76.2%, #99da00 77.8%, #94dd00 79.4%, #8fdf00 81.0%, #8ae200 82.5%, #84e500 84.1%, #7fe700 85.7%, #78ea00 87.3%, #71ed00 88.9%, #6aef00 90.5%, #61f200 92.1%, #58f500 93.7%, #4cf700 95.2%, #3ffa00 96.8%, #2bfc00 98.4%, #00ff00 100.0%)"></div><div class="grad-tag">OKLab</div></div></div></div>
+<div class="grad-row"><span class="grad-label">Blue → Yellow</span><div class="grad-pair"><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #0000ff 0.0%, #001cfd 1.6%, #002afc 3.2%, #0035fa 4.8%, #003ef9 6.3%, #0045f7 7.9%, #004cf6 9.5%, #0052f4 11.1%, #0058f2 12.7%, #005ef1 14.3%, #0363ef 15.9%, #0a68ed 17.5%, #116cec 19.0%, #1871ea 20.6%, #1d75e8 22.2%, #2379e6 23.8%, #287ee4 25.4%, #2d81e2 27.0%, #3285e0 28.6%, #3789de 30.2%, #3c8ddc 31.7%, #4190da 33.3%, #4694d8 34.9%, #4a97d6 36.5%, #4f9ad4 38.1%, #549ed2 39.7%, #58a1d0 41.3%, #5da4cd 42.9%, #61a7cb 44.4%, #66aac9 46.0%, #6badc6 47.6%, #6fb0c4 49.2%, #74b3c1 50.8%, #78b6be 52.4%, #7db9bc 54.0%, #81bcb9 55.6%, #86beb6 57.1%, #8ac1b3 58.7%, #8fc4b0 60.3%, #93c7ad 61.9%, #98c9aa 63.5%, #9ccca7 65.1%, #a1cea4 66.7%, #a5d1a0 68.3%, #aad39d 69.8%, #aed699 71.4%, #b3d895 73.0%, #b7db91 74.6%, #bcdd8d 76.2%, #c0e089 77.8%, #c5e284 79.4%, #c9e480 81.0%, #cee77b 82.5%, #d2e975 84.1%, #d7eb70 85.7%, #dbee6a 87.3%, #e0f063 88.9%, #e4f25c 90.5%, #e9f455 92.1%, #edf64c 93.7%, #f2f942 95.2%, #f6fb35 96.8%, #fbfd25 98.4%, #ffff00 100.0%)"></div><div class="grad-tag">SpaceForge</div></div><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #0000ff 0.0%, #001afe 1.6%, #0028fc 3.2%, #0032fb 4.8%, #003af9 6.3%, #0041f8 7.9%, #0048f7 9.5%, #004ef5 11.1%, #0053f4 12.7%, #0059f2 14.3%, #005ef0 15.9%, #0062ef 17.5%, #0067ed 19.0%, #096bec 20.6%, #126fea 22.2%, #1974e8 23.8%, #1f78e7 25.4%, #257be5 27.0%, #2a7fe3 28.6%, #2f83e1 30.2%, #3586df 31.7%, #3a8ade 33.3%, #3f8ddc 34.9%, #4391da 36.5%, #4894d8 38.1%, #4d97d6 39.7%, #529ad3 41.3%, #579ed1 42.9%, #5ba1cf 44.4%, #60a4cd 46.0%, #65a7cb 47.6%, #69aac8 49.2%, #6eadc6 50.8%, #73b0c3 52.4%, #77b3c1 54.0%, #7cb6be 55.6%, #81b9bc 57.1%, #85bbb9 58.7%, #8abeb6 60.3%, #8fc1b3 61.9%, #93c4b0 63.5%, #98c7ad 65.1%, #9cc9aa 66.7%, #a1cca6 68.3%, #a6cfa3 69.8%, #aad19f 71.4%, #afd49b 73.0%, #b4d798 74.6%, #b8d994 76.2%, #bddc8f 77.8%, #c2de8b 79.4%, #c6e186 81.0%, #cbe481 82.5%, #d0e67c 84.1%, #d4e976 85.7%, #d9eb70 87.3%, #deee69 88.9%, #e3f062 90.5%, #e7f35a 92.1%, #ecf551 93.7%, #f1f847 95.2%, #f5fa3a 96.8%, #fafd28 98.4%, #ffff00 100.0%)"></div><div class="grad-tag">OKLab</div></div></div></div>
+<div class="grad-row"><span class="grad-label">Black → White</span><div class="grad-pair"><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #000000 0.0%, #000000 1.6%, #000000 3.2%, #000000 4.8%, #010101 6.3%, #020202 7.9%, #030303 9.5%, #050505 11.1%, #070707 12.7%, #0a0a0a 14.3%, #0d0d0d 15.9%, #111111 17.5%, #141414 19.0%, #181818 20.6%, #1c1c1c 22.2%, #202020 23.8%, #242424 25.4%, #282828 27.0%, #2c2c2c 28.6%, #303030 30.2%, #343434 31.7%, #383838 33.3%, #3c3c3c 34.9%, #404040 36.5%, #454545 38.1%, #494949 39.7%, #4e4e4e 41.3%, #525252 42.9%, #575757 44.4%, #5b5b5b 46.0%, #606060 47.6%, #646464 49.2%, #696969 50.8%, #6d6d6d 52.4%, #727272 54.0%, #777777 55.6%, #7b7b7b 57.1%, #808080 58.7%, #858585 60.3%, #8a8a8a 61.9%, #8e8e8e 63.5%, #939393 65.1%, #989898 66.7%, #9d9d9d 68.3%, #a2a2a2 69.8%, #a6a6a6 71.4%, #ababab 73.0%, #b0b0b0 74.6%, #b5b5b5 76.2%, #bababa 77.8%, #bfbfbf 79.4%, #c4c4c4 81.0%, #c8c8c8 82.5%, #cdcdcd 84.1%, #d2d2d2 85.7%, #d7d7d7 87.3%, #dcdcdc 88.9%, #e1e1e1 90.5%, #e6e6e6 92.1%, #ebebeb 93.7%, #f0f0f0 95.2%, #f5f5f5 96.8%, #fafafa 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">SpaceForge</div></div><div class="grad-strip"><div style="height:40px;width:100%;border-radius:4px;background:linear-gradient(to right, #000000 0.0%, #000000 1.6%, #000000 3.2%, #000000 4.8%, #010101 6.3%, #020202 7.9%, #030303 9.5%, #050505 11.1%, #070707 12.7%, #0a0a0a 14.3%, #0d0d0d 15.9%, #101010 17.5%, #141414 19.0%, #171717 20.6%, #1b1b1b 22.2%, #1f1f1f 23.8%, #222222 25.4%, #262626 27.0%, #2a2a2a 28.6%, #2e2e2e 30.2%, #323232 31.7%, #363636 33.3%, #3a3a3a 34.9%, #3e3e3e 36.5%, #424242 38.1%, #474747 39.7%, #4b4b4b 41.3%, #4f4f4f 42.9%, #545454 44.4%, #585858 46.0%, #5c5c5c 47.6%, #616161 49.2%, #656565 50.8%, #6a6a6a 52.4%, #6e6e6e 54.0%, #737373 55.6%, #787878 57.1%, #7c7c7c 58.7%, #818181 60.3%, #868686 61.9%, #8a8a8a 63.5%, #8f8f8f 65.1%, #949494 66.7%, #999999 68.3%, #9e9e9e 69.8%, #a3a3a3 71.4%, #a8a8a8 73.0%, #adadad 74.6%, #b1b1b1 76.2%, #b6b6b6 77.8%, #bcbcbc 79.4%, #c1c1c1 81.0%, #c6c6c6 82.5%, #cbcbcb 84.1%, #d0d0d0 85.7%, #d5d5d5 87.3%, #dadada 88.9%, #dfdfdf 90.5%, #e5e5e5 92.1%, #eaeaea 93.7%, #efefef 95.2%, #f4f4f4 96.8%, #fafafa 98.4%, #ffffff 100.0%)"></div><div class="grad-tag">OKLab</div></div></div></div></div>
+<div class="gamut-cusps"><h2>Gamut Cusp Curves</h2><svg width="400" height="400" viewBox="0 0 400 400"><circle cx="200" cy="200" r="42" fill="none" stroke="#21262d" stroke-width="1"/><circle cx="200" cy="200" r="85" fill="none" stroke="#21262d" stroke-width="1"/><circle cx="200" cy="200" r="128" fill="none" stroke="#21262d" stroke-width="1"/><circle cx="200" cy="200" r="170" fill="none" stroke="#21262d" stroke-width="1"/><text x="200" y="15" fill="#8b949e" font-size="10" text-anchor="middle" dominant-baseline="central">0°</text>
+<text x="292" y="40" fill="#8b949e" font-size="10" text-anchor="middle" dominant-baseline="central">30°</text>
+<text x="360" y="108" fill="#8b949e" font-size="10" text-anchor="middle" dominant-baseline="central">60°</text>
+<text x="385" y="200" fill="#8b949e" font-size="10" text-anchor="middle" dominant-baseline="central">90°</text>
+<text x="360" y="292" fill="#8b949e" font-size="10" text-anchor="middle" dominant-baseline="central">120°</text>
+<text x="292" y="360" fill="#8b949e" font-size="10" text-anchor="middle" dominant-baseline="central">150°</text>
+<text x="200" y="385" fill="#8b949e" font-size="10" text-anchor="middle" dominant-baseline="central">180°</text>
+<text x="108" y="360" fill="#8b949e" font-size="10" text-anchor="middle" dominant-baseline="central">210°</text>
+<text x="40" y="292" fill="#8b949e" font-size="10" text-anchor="middle" dominant-baseline="central">240°</text>
+<text x="15" y="200" fill="#8b949e" font-size="10" text-anchor="middle" dominant-baseline="central">270°</text>
+<text x="40" y="107" fill="#8b949e" font-size="10" text-anchor="middle" dominant-baseline="central">300°</text>
+<text x="107" y="40" fill="#8b949e" font-size="10" text-anchor="middle" dominant-baseline="central">330°</text><path d="M 200.0,46.8 L 202.7,47.2 L 205.3,47.6 L 208.0,48.1 L 210.6,48.7 L 213.2,49.5 L 215.7,50.3 L 218.3,51.4 L 220.7,52.5 L 223.2,53.8 L 225.5,55.2 L 227.9,56.7 L 230.1,58.3 L 232.3,60.1 L 234.4,61.9 L 236.5,63.8 L 238.5,65.8 L 240.4,67.9 L 242.2,70.1 L 244.0,72.3 L 245.6,74.6 L 247.3,76.9 L 248.8,79.2 L 250.3,81.6 L 251.7,84.0 L 253.0,86.3 L 254.3,88.7 L 255.5,91.1 L 256.6,93.5 L 257.8,95.8 L 258.8,98.1 L 259.8,100.4 L 260.8,102.6 L 261.8,104.9 L 262.7,107.0 L 263.6,109.1 L 264.5,111.2 L 265.4,113.2 L 266.2,115.2 L 267.1,117.1 L 268.0,119.0 L 268.8,120.8 L 269.7,122.6 L 270.6,124.3 L 271.5,125.9 L 272.5,127.5 L 273.4,129.1 L 274.4,130.6 L 275.4,132.1 L 276.5,133.5 L 277.6,134.9 L 278.7,136.3 L 279.8,137.6 L 281.0,139.0 L 282.2,140.3 L 283.5,141.5 L 284.8,142.8 L 286.1,144.1 L 287.5,145.3 L 288.9,146.6 L 290.4,147.8 L 290.7,149.7 L 291.0,151.6 L 291.3,153.5 L 291.7,155.3 L 292.1,157.1 L 292.5,158.8 L 292.9,160.6 L 293.3,162.3 L 293.8,164.0 L 294.2,165.7 L 294.7,167.4 L 295.2,169.1 L 295.7,170.7 L 296.3,172.4 L 296.9,174.0 L 297.4,175.7 L 298.0,177.4 L 298.6,179.0 L 299.3,180.7 L 299.9,182.4 L 300.5,184.1 L 301.1,185.8 L 301.8,187.5 L 302.4,189.2 L 303.0,191.0 L 303.6,192.8 L 304.2,194.5 L 304.8,196.3 L 305.4,198.2 L 305.9,200.0 L 306.4,201.9 L 306.9,203.7 L 307.4,205.6 L 307.8,207.5 L 308.2,209.5 L 308.5,211.4 L 308.8,213.4 L 309.0,215.3 L 309.3,217.3 L 309.4,219.3 L 309.5,221.3 L 309.6,223.3 L 309.6,225.3 L 309.5,227.3 L 309.4,229.3 L 309.2,231.3 L 309.0,233.3 L 308.7,235.3 L 308.3,237.3 L 307.9,239.3 L 307.5,241.3 L 306.9,243.2 L 306.4,245.1 L 305.7,247.1 L 305.0,249.0 L 304.3,250.8 L 303.4,252.7 L 302.6,254.5 L 301.7,256.4 L 300.8,258.2 L 299.6,259.8 L 298.4,261.5 L 297.1,263.1 L 295.8,264.6 L 294.4,266.1 L 293.0,267.5 L 291.5,268.9 L 289.9,270.2 L 288.3,271.5 L 286.6,272.6 L 284.8,273.7 L 283.0,274.8 L 281.2,275.7 L 279.3,276.6 L 277.4,277.4 L 275.4,278.1 L 273.5,278.8 L 271.4,279.3 L 269.4,279.8 L 267.3,280.3 L 265.3,280.6 L 263.2,280.9 L 261.1,281.1 L 259.0,281.3 L 257.0,281.4 L 254.9,281.4 L 252.8,281.4 L 250.8,281.3 L 248.8,281.2 L 246.8,281.1 L 244.9,280.9 L 242.9,280.7 L 241.0,280.5 L 239.2,280.3 L 237.3,280.1 L 235.6,279.9 L 233.8,279.6 L 232.1,279.4 L 230.4,279.3 L 228.8,279.1 L 227.2,279.0 L 225.6,278.9 L 224.1,278.9 L 222.6,278.9 L 221.2,279.0 L 219.7,279.1 L 218.3,279.3 L 216.9,279.6 L 215.5,279.9 L 214.2,280.3 L 212.8,280.8 L 211.4,281.4 L 210.1,282.0 L 208.7,282.7 L 207.3,283.5 L 205.9,284.3 L 204.5,285.3 L 203.0,286.2 L 201.5,287.3 L 200.0,288.4 L 198.5,288.4 L 196.9,288.5 L 195.4,288.7 L 193.8,288.9 L 192.2,289.2 L 190.6,289.6 L 189.0,290.0 L 187.3,290.4 L 185.6,290.9 L 183.9,291.5 L 182.1,292.1 L 180.3,292.8 L 178.4,293.5 L 176.5,294.2 L 174.5,295.0 L 172.5,295.9 L 170.4,296.7 L 168.3,297.6 L 166.1,298.4 L 163.8,299.3 L 161.5,300.2 L 159.1,301.1 L 156.7,302.0 L 154.2,302.9 L 151.6,303.8 L 149.0,304.6 L 146.3,305.5 L 143.5,306.2 L 140.7,307.0 L 137.8,307.7 L 134.9,308.3 L 131.9,308.9 L 128.9,309.5 L 125.9,309.9 L 122.8,310.3 L 119.6,310.6 L 116.5,310.9 L 113.3,311.0 L 110.1,311.0 L 106.9,311.0 L 103.7,310.8 L 100.4,310.6 L 97.2,310.2 L 94.1,309.7 L 90.9,309.1 L 87.8,308.3 L 84.7,307.5 L 81.7,306.5 L 78.8,305.4 L 75.9,304.1 L 73.1,302.7 L 70.4,301.2 L 67.9,299.6 L 65.4,297.8 L 63.0,295.9 L 60.8,293.9 L 58.6,291.8 L 56.6,289.6 L 54.7,287.3 L 52.8,285.0 L 51.9,282.1 L 51.1,279.2 L 50.4,276.2 L 49.8,273.3 L 49.4,270.2 L 49.3,267.1 L 49.3,264.0 L 49.5,260.8 L 49.9,257.6 L 50.4,254.4 L 51.1,251.3 L 51.9,248.1 L 52.9,245.0 L 53.9,241.9 L 55.1,238.8 L 56.4,235.8 L 57.7,232.9 L 59.1,230.0 L 60.5,227.1 L 62.0,224.3 L 63.5,221.6 L 65.0,219.0 L 66.5,216.4 L 68.1,213.9 L 69.6,211.4 L 71.1,209.0 L 72.6,206.7 L 74.0,204.4 L 75.5,202.2 L 76.8,200.0 L 78.2,197.9 L 79.5,195.8 L 80.7,193.7 L 81.9,191.7 L 83.0,189.8 L 84.1,187.8 L 85.1,185.9 L 86.1,184.0 L 87.0,182.1 L 87.9,180.2 L 88.6,178.4 L 89.4,176.5 L 90.0,174.6 L 90.7,172.7 L 91.2,170.9 L 91.8,169.0 L 92.2,167.1 L 92.7,165.1 L 93.1,163.2 L 93.4,161.2 L 93.7,159.2 L 94.0,157.2 L 94.3,155.1 L 94.5,153.0 L 94.7,150.9 L 95.0,148.8 L 95.2,146.6 L 95.3,144.4 L 95.5,142.1 L 95.7,139.8 L 97.2,138.2 L 98.7,136.7 L 100.2,135.2 L 101.6,133.6 L 103.0,132.1 L 104.4,130.5 L 105.8,129.0 L 107.1,127.4 L 108.5,125.9 L 109.8,124.3 L 111.1,122.7 L 112.4,121.1 L 113.7,119.5 L 115.0,117.9 L 116.2,116.2 L 117.5,114.6 L 118.8,112.9 L 120.0,111.2 L 121.3,109.5 L 122.6,107.7 L 123.9,106.0 L 125.2,104.2 L 126.5,102.4 L 127.8,100.6 L 129.1,98.8 L 130.5,96.9 L 131.8,95.0 L 133.2,93.2 L 134.7,91.3 L 136.1,89.4 L 137.6,87.4 L 139.1,85.5 L 140.7,83.6 L 142.3,81.7 L 143.9,79.7 L 145.6,77.8 L 147.3,75.9 L 149.1,74.0 L 150.9,72.1 L 152.8,70.2 L 154.7,68.4 L 156.7,66.6 L 158.7,64.8 L 160.7,63.1 L 162.9,61.4 L 165.1,59.8 L 167.3,58.3 L 169.6,56.8 L 171.9,55.4 L 174.3,54.1 L 176.7,52.9 L 179.2,51.8 L 181.7,50.8 L 184.2,49.9 L 186.8,49.2 L 189.4,48.5 L 192.0,47.9 L 194.7,47.5 L 197.3,47.1 L 200.0,46.8" fill="none" stroke="#58a6ff" stroke-width="2" opacity="0.9"/><text x="390" y="20" fill="#58a6ff" font-size="12" text-anchor="end">sRGB</text></svg></div>
+<div class="hue-wheel"><h2>Hue Wheel</h2><svg width="400" height="400" viewBox="0 0 400 400"><line x1="200.0" y1="50.0" x2="202.6" y2="50.0" stroke="#e62e2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="202.6" y1="50.0" x2="205.2" y2="50.1" stroke="#e6312e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="205.2" y1="50.1" x2="207.9" y2="50.2" stroke="#e6342e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="207.9" y1="50.2" x2="210.5" y2="50.4" stroke="#e6372e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="210.5" y1="50.4" x2="213.1" y2="50.6" stroke="#e63a2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="213.1" y1="50.6" x2="215.7" y2="50.8" stroke="#e63d2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="215.7" y1="50.8" x2="218.3" y2="51.1" stroke="#e6402e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="218.3" y1="51.1" x2="220.9" y2="51.5" stroke="#e6432e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="220.9" y1="51.5" x2="223.5" y2="51.8" stroke="#e6462e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="223.5" y1="51.8" x2="226.0" y2="52.3" stroke="#e6492e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="226.0" y1="52.3" x2="228.6" y2="52.8" stroke="#e64c2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="228.6" y1="52.8" x2="231.2" y2="53.3" stroke="#e6502e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="231.2" y1="53.3" x2="233.7" y2="53.8" stroke="#e6532e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="233.7" y1="53.8" x2="236.3" y2="54.5" stroke="#e6562e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="236.3" y1="54.5" x2="238.8" y2="55.1" stroke="#e6592e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="238.8" y1="55.1" x2="241.3" y2="55.8" stroke="#e65c2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="241.3" y1="55.8" x2="243.9" y2="56.6" stroke="#e65f2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="243.9" y1="56.6" x2="246.4" y2="57.3" stroke="#e6622e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="246.4" y1="57.3" x2="248.8" y2="58.2" stroke="#e6652e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="248.8" y1="58.2" x2="251.3" y2="59.0" stroke="#e6682e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="251.3" y1="59.0" x2="253.8" y2="60.0" stroke="#e66b2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="253.8" y1="60.0" x2="256.2" y2="60.9" stroke="#e66e2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="256.2" y1="60.9" x2="258.6" y2="61.9" stroke="#e6712e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="258.6" y1="61.9" x2="261.0" y2="63.0" stroke="#e6742e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="261.0" y1="63.0" x2="263.4" y2="64.1" stroke="#e6772e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="263.4" y1="64.1" x2="265.8" y2="65.2" stroke="#e67a2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="265.8" y1="65.2" x2="268.1" y2="66.3" stroke="#e67d2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="268.1" y1="66.3" x2="270.4" y2="67.6" stroke="#e6812e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="270.4" y1="67.6" x2="272.7" y2="68.8" stroke="#e6842e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="272.7" y1="68.8" x2="275.0" y2="70.1" stroke="#e6872e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="275.0" y1="70.1" x2="277.3" y2="71.4" stroke="#e68a2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="277.3" y1="71.4" x2="279.5" y2="72.8" stroke="#e68d2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="279.5" y1="72.8" x2="281.7" y2="74.2" stroke="#e6902e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="281.7" y1="74.2" x2="283.9" y2="75.6" stroke="#e6932e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="283.9" y1="75.6" x2="286.0" y2="77.1" stroke="#e6962e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="286.0" y1="77.1" x2="288.2" y2="78.6" stroke="#e6992e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="288.2" y1="78.6" x2="290.3" y2="80.2" stroke="#e69c2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="290.3" y1="80.2" x2="292.3" y2="81.8" stroke="#e69f2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="292.3" y1="81.8" x2="294.4" y2="83.4" stroke="#e6a22e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="294.4" y1="83.4" x2="296.4" y2="85.1" stroke="#e6a52e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="296.4" y1="85.1" x2="298.4" y2="86.8" stroke="#e6a82e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="298.4" y1="86.8" x2="300.4" y2="88.5" stroke="#e6ab2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="300.4" y1="88.5" x2="302.3" y2="90.3" stroke="#e6ae2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="302.3" y1="90.3" x2="304.2" y2="92.1" stroke="#e6b12e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="304.2" y1="92.1" x2="306.1" y2="93.9" stroke="#e6b52e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="306.1" y1="93.9" x2="307.9" y2="95.8" stroke="#e6b82e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="307.9" y1="95.8" x2="309.7" y2="97.7" stroke="#e6bb2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="309.7" y1="97.7" x2="311.5" y2="99.6" stroke="#e6be2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="311.5" y1="99.6" x2="313.2" y2="101.6" stroke="#e6c12e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="313.2" y1="101.6" x2="314.9" y2="103.6" stroke="#e6c42e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="314.9" y1="103.6" x2="316.6" y2="105.6" stroke="#e6c72e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="316.6" y1="105.6" x2="318.2" y2="107.7" stroke="#e6ca2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="318.2" y1="107.7" x2="319.8" y2="109.7" stroke="#e6cd2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="319.8" y1="109.7" x2="321.4" y2="111.8" stroke="#e6d02e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="321.4" y1="111.8" x2="322.9" y2="114.0" stroke="#e6d32e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="322.9" y1="114.0" x2="324.4" y2="116.1" stroke="#e6d62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="324.4" y1="116.1" x2="325.8" y2="118.3" stroke="#e6d92e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="325.8" y1="118.3" x2="327.2" y2="120.5" stroke="#e6dc2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="327.2" y1="120.5" x2="328.6" y2="122.7" stroke="#e6df2e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="328.6" y1="122.7" x2="329.9" y2="125.0" stroke="#e6e22e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="329.9" y1="125.0" x2="331.2" y2="127.3" stroke="#e6e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="331.2" y1="127.3" x2="332.4" y2="129.6" stroke="#e2e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="332.4" y1="129.6" x2="333.7" y2="131.9" stroke="#dfe62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="333.7" y1="131.9" x2="334.8" y2="134.2" stroke="#dce62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="334.8" y1="134.2" x2="335.9" y2="136.6" stroke="#d9e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="335.9" y1="136.6" x2="337.0" y2="139.0" stroke="#d6e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="337.0" y1="139.0" x2="338.1" y2="141.4" stroke="#d3e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="338.1" y1="141.4" x2="339.1" y2="143.8" stroke="#d0e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="339.1" y1="143.8" x2="340.0" y2="146.2" stroke="#cde62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="340.0" y1="146.2" x2="341.0" y2="148.7" stroke="#cae62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="341.0" y1="148.7" x2="341.8" y2="151.2" stroke="#c7e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="341.8" y1="151.2" x2="342.7" y2="153.6" stroke="#c4e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="342.7" y1="153.6" x2="343.4" y2="156.1" stroke="#c1e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="343.4" y1="156.1" x2="344.2" y2="158.7" stroke="#bee62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="344.2" y1="158.7" x2="344.9" y2="161.2" stroke="#bbe62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="344.9" y1="161.2" x2="345.5" y2="163.7" stroke="#b8e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="345.5" y1="163.7" x2="346.2" y2="166.3" stroke="#b5e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="346.2" y1="166.3" x2="346.7" y2="168.8" stroke="#b1e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="346.7" y1="168.8" x2="347.2" y2="171.4" stroke="#aee62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="347.2" y1="171.4" x2="347.7" y2="174.0" stroke="#abe62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="347.7" y1="174.0" x2="348.2" y2="176.5" stroke="#a8e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="348.2" y1="176.5" x2="348.5" y2="179.1" stroke="#a5e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="348.5" y1="179.1" x2="348.9" y2="181.7" stroke="#a2e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="348.9" y1="181.7" x2="349.2" y2="184.3" stroke="#9fe62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="349.2" y1="184.3" x2="349.4" y2="186.9" stroke="#9ce62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="349.4" y1="186.9" x2="349.6" y2="189.5" stroke="#99e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="349.6" y1="189.5" x2="349.8" y2="192.1" stroke="#96e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="349.8" y1="192.1" x2="349.9" y2="194.8" stroke="#93e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="349.9" y1="194.8" x2="350.0" y2="197.4" stroke="#90e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="350.0" y1="197.4" x2="350.0" y2="200.0" stroke="#8de62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="350.0" y1="200.0" x2="350.0" y2="202.6" stroke="#8ae62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="350.0" y1="202.6" x2="349.9" y2="205.2" stroke="#87e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="349.9" y1="205.2" x2="349.8" y2="207.9" stroke="#84e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="349.8" y1="207.9" x2="349.6" y2="210.5" stroke="#81e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="349.6" y1="210.5" x2="349.4" y2="213.1" stroke="#7de62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="349.4" y1="213.1" x2="349.2" y2="215.7" stroke="#7ae62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="349.2" y1="215.7" x2="348.9" y2="218.3" stroke="#77e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="348.9" y1="218.3" x2="348.5" y2="220.9" stroke="#74e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="348.5" y1="220.9" x2="348.2" y2="223.5" stroke="#71e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="348.2" y1="223.5" x2="347.7" y2="226.0" stroke="#6ee62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="347.7" y1="226.0" x2="347.2" y2="228.6" stroke="#6be62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="347.2" y1="228.6" x2="346.7" y2="231.2" stroke="#68e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="346.7" y1="231.2" x2="346.2" y2="233.7" stroke="#65e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="346.2" y1="233.7" x2="345.5" y2="236.3" stroke="#62e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="345.5" y1="236.3" x2="344.9" y2="238.8" stroke="#5fe62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="344.9" y1="238.8" x2="344.2" y2="241.3" stroke="#5ce62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="344.2" y1="241.3" x2="343.4" y2="243.9" stroke="#59e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="343.4" y1="243.9" x2="342.7" y2="246.4" stroke="#56e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="342.7" y1="246.4" x2="341.8" y2="248.8" stroke="#53e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="341.8" y1="248.8" x2="341.0" y2="251.3" stroke="#50e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="341.0" y1="251.3" x2="340.0" y2="253.8" stroke="#4ce62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="340.0" y1="253.8" x2="339.1" y2="256.2" stroke="#49e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="339.1" y1="256.2" x2="338.1" y2="258.6" stroke="#46e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="338.1" y1="258.6" x2="337.0" y2="261.0" stroke="#43e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="337.0" y1="261.0" x2="335.9" y2="263.4" stroke="#40e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="335.9" y1="263.4" x2="334.8" y2="265.8" stroke="#3de62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="334.8" y1="265.8" x2="333.7" y2="268.1" stroke="#3ae62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="333.7" y1="268.1" x2="332.4" y2="270.4" stroke="#37e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="332.4" y1="270.4" x2="331.2" y2="272.7" stroke="#34e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="331.2" y1="272.7" x2="329.9" y2="275.0" stroke="#31e62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="329.9" y1="275.0" x2="328.6" y2="277.3" stroke="#2ee62e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="328.6" y1="277.3" x2="327.2" y2="279.5" stroke="#2ee631" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="327.2" y1="279.5" x2="325.8" y2="281.7" stroke="#2ee634" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="325.8" y1="281.7" x2="324.4" y2="283.9" stroke="#2ee637" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="324.4" y1="283.9" x2="322.9" y2="286.0" stroke="#2ee63a" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="322.9" y1="286.0" x2="321.4" y2="288.2" stroke="#2ee63d" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="321.4" y1="288.2" x2="319.8" y2="290.3" stroke="#2ee640" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="319.8" y1="290.3" x2="318.2" y2="292.3" stroke="#2ee643" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="318.2" y1="292.3" x2="316.6" y2="294.4" stroke="#2ee646" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="316.6" y1="294.4" x2="314.9" y2="296.4" stroke="#2ee649" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="314.9" y1="296.4" x2="313.2" y2="298.4" stroke="#2ee64c" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="313.2" y1="298.4" x2="311.5" y2="300.4" stroke="#2ee650" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="311.5" y1="300.4" x2="309.7" y2="302.3" stroke="#2ee653" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="309.7" y1="302.3" x2="307.9" y2="304.2" stroke="#2ee656" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="307.9" y1="304.2" x2="306.1" y2="306.1" stroke="#2ee659" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="306.1" y1="306.1" x2="304.2" y2="307.9" stroke="#2ee65c" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="304.2" y1="307.9" x2="302.3" y2="309.7" stroke="#2ee65f" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="302.3" y1="309.7" x2="300.4" y2="311.5" stroke="#2ee662" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="300.4" y1="311.5" x2="298.4" y2="313.2" stroke="#2ee665" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="298.4" y1="313.2" x2="296.4" y2="314.9" stroke="#2ee668" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="296.4" y1="314.9" x2="294.4" y2="316.6" stroke="#2ee66b" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="294.4" y1="316.6" x2="292.3" y2="318.2" stroke="#2ee66e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="292.3" y1="318.2" x2="290.3" y2="319.8" stroke="#2ee671" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="290.3" y1="319.8" x2="288.2" y2="321.4" stroke="#2ee674" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="288.2" y1="321.4" x2="286.0" y2="322.9" stroke="#2ee677" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="286.0" y1="322.9" x2="283.9" y2="324.4" stroke="#2ee67a" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="283.9" y1="324.4" x2="281.7" y2="325.8" stroke="#2ee67d" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="281.7" y1="325.8" x2="279.5" y2="327.2" stroke="#2ee681" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="279.5" y1="327.2" x2="277.3" y2="328.6" stroke="#2ee684" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="277.3" y1="328.6" x2="275.0" y2="329.9" stroke="#2ee687" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="275.0" y1="329.9" x2="272.7" y2="331.2" stroke="#2ee68a" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="272.7" y1="331.2" x2="270.4" y2="332.4" stroke="#2ee68d" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="270.4" y1="332.4" x2="268.1" y2="333.7" stroke="#2ee690" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="268.1" y1="333.7" x2="265.8" y2="334.8" stroke="#2ee693" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="265.8" y1="334.8" x2="263.4" y2="335.9" stroke="#2ee696" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="263.4" y1="335.9" x2="261.0" y2="337.0" stroke="#2ee699" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="261.0" y1="337.0" x2="258.6" y2="338.1" stroke="#2ee69c" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="258.6" y1="338.1" x2="256.2" y2="339.1" stroke="#2ee69f" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="256.2" y1="339.1" x2="253.8" y2="340.0" stroke="#2ee6a2" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="253.8" y1="340.0" x2="251.3" y2="341.0" stroke="#2ee6a5" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="251.3" y1="341.0" x2="248.8" y2="341.8" stroke="#2ee6a8" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="248.8" y1="341.8" x2="246.4" y2="342.7" stroke="#2ee6ab" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="246.4" y1="342.7" x2="243.9" y2="343.4" stroke="#2ee6ae" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="243.9" y1="343.4" x2="241.3" y2="344.2" stroke="#2ee6b1" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="241.3" y1="344.2" x2="238.8" y2="344.9" stroke="#2ee6b5" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="238.8" y1="344.9" x2="236.3" y2="345.5" stroke="#2ee6b8" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="236.3" y1="345.5" x2="233.7" y2="346.2" stroke="#2ee6bb" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="233.7" y1="346.2" x2="231.2" y2="346.7" stroke="#2ee6be" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="231.2" y1="346.7" x2="228.6" y2="347.2" stroke="#2ee6c1" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="228.6" y1="347.2" x2="226.0" y2="347.7" stroke="#2ee6c4" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="226.0" y1="347.7" x2="223.5" y2="348.2" stroke="#2ee6c7" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="223.5" y1="348.2" x2="220.9" y2="348.5" stroke="#2ee6ca" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="220.9" y1="348.5" x2="218.3" y2="348.9" stroke="#2ee6cd" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="218.3" y1="348.9" x2="215.7" y2="349.2" stroke="#2ee6d0" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="215.7" y1="349.2" x2="213.1" y2="349.4" stroke="#2ee6d3" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="213.1" y1="349.4" x2="210.5" y2="349.6" stroke="#2ee6d6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="210.5" y1="349.6" x2="207.9" y2="349.8" stroke="#2ee6d9" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="207.9" y1="349.8" x2="205.2" y2="349.9" stroke="#2ee6dc" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="205.2" y1="349.9" x2="202.6" y2="350.0" stroke="#2ee6df" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="202.6" y1="350.0" x2="200.0" y2="350.0" stroke="#2ee6e2" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="200.0" y1="350.0" x2="197.4" y2="350.0" stroke="#2ee6e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="197.4" y1="350.0" x2="194.8" y2="349.9" stroke="#2ee2e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="194.8" y1="349.9" x2="192.1" y2="349.8" stroke="#2edfe6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="192.1" y1="349.8" x2="189.5" y2="349.6" stroke="#2edce6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="189.5" y1="349.6" x2="186.9" y2="349.4" stroke="#2ed9e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="186.9" y1="349.4" x2="184.3" y2="349.2" stroke="#2ed6e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="184.3" y1="349.2" x2="181.7" y2="348.9" stroke="#2ed3e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="181.7" y1="348.9" x2="179.1" y2="348.5" stroke="#2ed0e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="179.1" y1="348.5" x2="176.5" y2="348.2" stroke="#2ecde6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="176.5" y1="348.2" x2="174.0" y2="347.7" stroke="#2ecae6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="174.0" y1="347.7" x2="171.4" y2="347.2" stroke="#2ec7e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="171.4" y1="347.2" x2="168.8" y2="346.7" stroke="#2ec4e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="168.8" y1="346.7" x2="166.3" y2="346.2" stroke="#2ec1e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="166.3" y1="346.2" x2="163.7" y2="345.5" stroke="#2ebee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="163.7" y1="345.5" x2="161.2" y2="344.9" stroke="#2ebbe6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="161.2" y1="344.9" x2="158.7" y2="344.2" stroke="#2eb8e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="158.7" y1="344.2" x2="156.1" y2="343.4" stroke="#2eb5e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="156.1" y1="343.4" x2="153.6" y2="342.7" stroke="#2eb1e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="153.6" y1="342.7" x2="151.2" y2="341.8" stroke="#2eaee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="151.2" y1="341.8" x2="148.7" y2="341.0" stroke="#2eabe6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="148.7" y1="341.0" x2="146.2" y2="340.0" stroke="#2ea8e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="146.2" y1="340.0" x2="143.8" y2="339.1" stroke="#2ea5e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="143.8" y1="339.1" x2="141.4" y2="338.1" stroke="#2ea2e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="141.4" y1="338.1" x2="139.0" y2="337.0" stroke="#2e9fe6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="139.0" y1="337.0" x2="136.6" y2="335.9" stroke="#2e9ce6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="136.6" y1="335.9" x2="134.2" y2="334.8" stroke="#2e99e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="134.2" y1="334.8" x2="131.9" y2="333.7" stroke="#2e96e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="131.9" y1="333.7" x2="129.6" y2="332.4" stroke="#2e93e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="129.6" y1="332.4" x2="127.3" y2="331.2" stroke="#2e90e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="127.3" y1="331.2" x2="125.0" y2="329.9" stroke="#2e8de6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="125.0" y1="329.9" x2="122.7" y2="328.6" stroke="#2e8ae6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="122.7" y1="328.6" x2="120.5" y2="327.2" stroke="#2e87e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="120.5" y1="327.2" x2="118.3" y2="325.8" stroke="#2e84e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="118.3" y1="325.8" x2="116.1" y2="324.4" stroke="#2e81e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="116.1" y1="324.4" x2="114.0" y2="322.9" stroke="#2e7de6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="114.0" y1="322.9" x2="111.8" y2="321.4" stroke="#2e7ae6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="111.8" y1="321.4" x2="109.7" y2="319.8" stroke="#2e77e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="109.7" y1="319.8" x2="107.7" y2="318.2" stroke="#2e74e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="107.7" y1="318.2" x2="105.6" y2="316.6" stroke="#2e71e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="105.6" y1="316.6" x2="103.6" y2="314.9" stroke="#2e6ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="103.6" y1="314.9" x2="101.6" y2="313.2" stroke="#2e6be6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="101.6" y1="313.2" x2="99.6" y2="311.5" stroke="#2e68e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="99.6" y1="311.5" x2="97.7" y2="309.7" stroke="#2e65e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="97.7" y1="309.7" x2="95.8" y2="307.9" stroke="#2e62e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="95.8" y1="307.9" x2="93.9" y2="306.1" stroke="#2e5fe6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="93.9" y1="306.1" x2="92.1" y2="304.2" stroke="#2e5ce6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="92.1" y1="304.2" x2="90.3" y2="302.3" stroke="#2e59e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="90.3" y1="302.3" x2="88.5" y2="300.4" stroke="#2e56e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="88.5" y1="300.4" x2="86.8" y2="298.4" stroke="#2e53e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="86.8" y1="298.4" x2="85.1" y2="296.4" stroke="#2e50e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="85.1" y1="296.4" x2="83.4" y2="294.4" stroke="#2e4de6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="83.4" y1="294.4" x2="81.8" y2="292.3" stroke="#2e49e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="81.8" y1="292.3" x2="80.2" y2="290.3" stroke="#2e46e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="80.2" y1="290.3" x2="78.6" y2="288.2" stroke="#2e43e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="78.6" y1="288.2" x2="77.1" y2="286.0" stroke="#2e40e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="77.1" y1="286.0" x2="75.6" y2="283.9" stroke="#2e3de6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="75.6" y1="283.9" x2="74.2" y2="281.7" stroke="#2e3ae6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="74.2" y1="281.7" x2="72.8" y2="279.5" stroke="#2e37e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="72.8" y1="279.5" x2="71.4" y2="277.3" stroke="#2e34e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="71.4" y1="277.3" x2="70.1" y2="275.0" stroke="#2e31e6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="70.1" y1="275.0" x2="68.8" y2="272.7" stroke="#2e2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="68.8" y1="272.7" x2="67.6" y2="270.4" stroke="#312ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="67.6" y1="270.4" x2="66.3" y2="268.1" stroke="#342ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="66.3" y1="268.1" x2="65.2" y2="265.8" stroke="#372ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="65.2" y1="265.8" x2="64.1" y2="263.4" stroke="#3a2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="64.1" y1="263.4" x2="63.0" y2="261.0" stroke="#3d2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="63.0" y1="261.0" x2="61.9" y2="258.6" stroke="#402ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="61.9" y1="258.6" x2="60.9" y2="256.2" stroke="#432ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="60.9" y1="256.2" x2="60.0" y2="253.8" stroke="#462ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="60.0" y1="253.8" x2="59.0" y2="251.3" stroke="#492ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="59.0" y1="251.3" x2="58.2" y2="248.8" stroke="#4c2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="58.2" y1="248.8" x2="57.3" y2="246.4" stroke="#502ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="57.3" y1="246.4" x2="56.6" y2="243.9" stroke="#532ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="56.6" y1="243.9" x2="55.8" y2="241.3" stroke="#562ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="55.8" y1="241.3" x2="55.1" y2="238.8" stroke="#592ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="55.1" y1="238.8" x2="54.5" y2="236.3" stroke="#5c2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="54.5" y1="236.3" x2="53.8" y2="233.7" stroke="#5f2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="53.8" y1="233.7" x2="53.3" y2="231.2" stroke="#622ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="53.3" y1="231.2" x2="52.8" y2="228.6" stroke="#652ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="52.8" y1="228.6" x2="52.3" y2="226.0" stroke="#682ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="52.3" y1="226.0" x2="51.8" y2="223.5" stroke="#6b2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="51.8" y1="223.5" x2="51.5" y2="220.9" stroke="#6e2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="51.5" y1="220.9" x2="51.1" y2="218.3" stroke="#712ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="51.1" y1="218.3" x2="50.8" y2="215.7" stroke="#742ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.8" y1="215.7" x2="50.6" y2="213.1" stroke="#772ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.6" y1="213.1" x2="50.4" y2="210.5" stroke="#7a2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.4" y1="210.5" x2="50.2" y2="207.9" stroke="#7d2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.2" y1="207.9" x2="50.1" y2="205.2" stroke="#812ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.1" y1="205.2" x2="50.0" y2="202.6" stroke="#842ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.0" y1="202.6" x2="50.0" y2="200.0" stroke="#872ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.0" y1="200.0" x2="50.0" y2="197.4" stroke="#8a2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.0" y1="197.4" x2="50.1" y2="194.8" stroke="#8d2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.1" y1="194.8" x2="50.2" y2="192.1" stroke="#902ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.2" y1="192.1" x2="50.4" y2="189.5" stroke="#932ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.4" y1="189.5" x2="50.6" y2="186.9" stroke="#962ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.6" y1="186.9" x2="50.8" y2="184.3" stroke="#992ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="50.8" y1="184.3" x2="51.1" y2="181.7" stroke="#9c2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="51.1" y1="181.7" x2="51.5" y2="179.1" stroke="#9f2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="51.5" y1="179.1" x2="51.8" y2="176.5" stroke="#a22ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="51.8" y1="176.5" x2="52.3" y2="174.0" stroke="#a52ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="52.3" y1="174.0" x2="52.8" y2="171.4" stroke="#a82ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="52.8" y1="171.4" x2="53.3" y2="168.8" stroke="#ab2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="53.3" y1="168.8" x2="53.8" y2="166.3" stroke="#ae2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="53.8" y1="166.3" x2="54.5" y2="163.7" stroke="#b12ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="54.5" y1="163.7" x2="55.1" y2="161.2" stroke="#b52ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="55.1" y1="161.2" x2="55.8" y2="158.7" stroke="#b82ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="55.8" y1="158.7" x2="56.6" y2="156.1" stroke="#bb2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="56.6" y1="156.1" x2="57.3" y2="153.6" stroke="#be2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="57.3" y1="153.6" x2="58.2" y2="151.2" stroke="#c12ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="58.2" y1="151.2" x2="59.0" y2="148.7" stroke="#c42ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="59.0" y1="148.7" x2="60.0" y2="146.2" stroke="#c72ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="60.0" y1="146.2" x2="60.9" y2="143.8" stroke="#ca2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="60.9" y1="143.8" x2="61.9" y2="141.4" stroke="#cd2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="61.9" y1="141.4" x2="63.0" y2="139.0" stroke="#d02ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="63.0" y1="139.0" x2="64.1" y2="136.6" stroke="#d32ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="64.1" y1="136.6" x2="65.2" y2="134.2" stroke="#d62ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="65.2" y1="134.2" x2="66.3" y2="131.9" stroke="#d92ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="66.3" y1="131.9" x2="67.6" y2="129.6" stroke="#dc2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="67.6" y1="129.6" x2="68.8" y2="127.3" stroke="#df2ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="68.8" y1="127.3" x2="70.1" y2="125.0" stroke="#e22ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="70.1" y1="125.0" x2="71.4" y2="122.7" stroke="#e62ee6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="71.4" y1="122.7" x2="72.8" y2="120.5" stroke="#e62ee2" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="72.8" y1="120.5" x2="74.2" y2="118.3" stroke="#e62edf" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="74.2" y1="118.3" x2="75.6" y2="116.1" stroke="#e62edc" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="75.6" y1="116.1" x2="77.1" y2="114.0" stroke="#e62ed9" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="77.1" y1="114.0" x2="78.6" y2="111.8" stroke="#e62ed6" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="78.6" y1="111.8" x2="80.2" y2="109.7" stroke="#e62ed3" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="80.2" y1="109.7" x2="81.8" y2="107.7" stroke="#e62ed0" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="81.8" y1="107.7" x2="83.4" y2="105.6" stroke="#e62ecd" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="83.4" y1="105.6" x2="85.1" y2="103.6" stroke="#e62eca" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="85.1" y1="103.6" x2="86.8" y2="101.6" stroke="#e62ec7" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="86.8" y1="101.6" x2="88.5" y2="99.6" stroke="#e62ec4" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="88.5" y1="99.6" x2="90.3" y2="97.7" stroke="#e62ec1" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="90.3" y1="97.7" x2="92.1" y2="95.8" stroke="#e62ebe" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="92.1" y1="95.8" x2="93.9" y2="93.9" stroke="#e62ebb" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="93.9" y1="93.9" x2="95.8" y2="92.1" stroke="#e62eb8" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="95.8" y1="92.1" x2="97.7" y2="90.3" stroke="#e62eb5" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="97.7" y1="90.3" x2="99.6" y2="88.5" stroke="#e62eb1" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="99.6" y1="88.5" x2="101.6" y2="86.8" stroke="#e62eae" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="101.6" y1="86.8" x2="103.6" y2="85.1" stroke="#e62eab" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="103.6" y1="85.1" x2="105.6" y2="83.4" stroke="#e62ea8" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="105.6" y1="83.4" x2="107.7" y2="81.8" stroke="#e62ea5" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="107.7" y1="81.8" x2="109.7" y2="80.2" stroke="#e62ea2" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="109.7" y1="80.2" x2="111.8" y2="78.6" stroke="#e62e9f" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="111.8" y1="78.6" x2="114.0" y2="77.1" stroke="#e62e9c" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="114.0" y1="77.1" x2="116.1" y2="75.6" stroke="#e62e99" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="116.1" y1="75.6" x2="118.3" y2="74.2" stroke="#e62e96" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="118.3" y1="74.2" x2="120.5" y2="72.8" stroke="#e62e93" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="120.5" y1="72.8" x2="122.7" y2="71.4" stroke="#e62e90" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="122.7" y1="71.4" x2="125.0" y2="70.1" stroke="#e62e8d" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="125.0" y1="70.1" x2="127.3" y2="68.8" stroke="#e62e8a" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="127.3" y1="68.8" x2="129.6" y2="67.6" stroke="#e62e87" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="129.6" y1="67.6" x2="131.9" y2="66.3" stroke="#e62e84" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="131.9" y1="66.3" x2="134.2" y2="65.2" stroke="#e62e81" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="134.2" y1="65.2" x2="136.6" y2="64.1" stroke="#e62e7d" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="136.6" y1="64.1" x2="139.0" y2="63.0" stroke="#e62e7a" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="139.0" y1="63.0" x2="141.4" y2="61.9" stroke="#e62e77" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="141.4" y1="61.9" x2="143.8" y2="60.9" stroke="#e62e74" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="143.8" y1="60.9" x2="146.2" y2="60.0" stroke="#e62e71" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="146.2" y1="60.0" x2="148.7" y2="59.0" stroke="#e62e6e" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="148.7" y1="59.0" x2="151.2" y2="58.2" stroke="#e62e6b" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="151.2" y1="58.2" x2="153.6" y2="57.3" stroke="#e62e68" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="153.6" y1="57.3" x2="156.1" y2="56.6" stroke="#e62e65" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="156.1" y1="56.6" x2="158.7" y2="55.8" stroke="#e62e62" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="158.7" y1="55.8" x2="161.2" y2="55.1" stroke="#e62e5f" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="161.2" y1="55.1" x2="163.7" y2="54.5" stroke="#e62e5c" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="163.7" y1="54.5" x2="166.3" y2="53.8" stroke="#e62e59" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="166.3" y1="53.8" x2="168.8" y2="53.3" stroke="#e62e56" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="168.8" y1="53.3" x2="171.4" y2="52.8" stroke="#e62e53" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="171.4" y1="52.8" x2="174.0" y2="52.3" stroke="#e62e50" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="174.0" y1="52.3" x2="176.5" y2="51.8" stroke="#e62e4d" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="176.5" y1="51.8" x2="179.1" y2="51.5" stroke="#e62e49" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="179.1" y1="51.5" x2="181.7" y2="51.1" stroke="#e62e46" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="181.7" y1="51.1" x2="184.3" y2="50.8" stroke="#e62e43" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="184.3" y1="50.8" x2="186.9" y2="50.6" stroke="#e62e40" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="186.9" y1="50.6" x2="189.5" y2="50.4" stroke="#e62e3d" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="189.5" y1="50.4" x2="192.1" y2="50.2" stroke="#e62e3a" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="192.1" y1="50.2" x2="194.8" y2="50.1" stroke="#e62e37" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="194.8" y1="50.1" x2="197.4" y2="50.0" stroke="#e62e34" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+<line x1="197.4" y1="50.0" x2="200.0" y2="50.0" stroke="#e62e31" stroke-width="20" stroke-linecap="round" opacity="0.3"/><line x1="200" y1="45" x2="200" y2="355" stroke="#21262d" stroke-width="1"/><line x1="45" y1="200" x2="355" y2="200" stroke="#21262d" stroke-width="1"/><circle cx="211.8" cy="50.5" r="8" fill="#ff0000" stroke="#e6edf3" stroke-width="2"/><text x="214" y="21" fill="#e6edf3" font-size="11" text-anchor="middle" dominant-baseline="central">Red<tspan font-size="9" fill="#8b949e"> 5°</tspan></text>
+<circle cx="335.2" cy="135.0" r="8" fill="#ffff00" stroke="#e6edf3" stroke-width="2"/><text x="362" y="122" fill="#e6edf3" font-size="11" text-anchor="middle" dominant-baseline="central">Yellow<tspan font-size="9" fill="#8b949e"> 64°</tspan></text>
+<circle cx="339.9" cy="254.0" r="8" fill="#00ff00" stroke="#e6edf3" stroke-width="2"/><text x="368" y="265" fill="#e6edf3" font-size="11" text-anchor="middle" dominant-baseline="central">Green<tspan font-size="9" fill="#8b949e"> 111°</tspan></text>
+<circle cx="210.7" cy="349.6" r="8" fill="#00ffff" stroke="#e6edf3" stroke-width="2"/><text x="213" y="380" fill="#e6edf3" font-size="11" text-anchor="middle" dominant-baseline="central">Cyan<tspan font-size="9" fill="#8b949e"> 176°</tspan></text>
+<circle cx="103.6" cy="314.9" r="8" fill="#0000ff" stroke="#e6edf3" stroke-width="2"/><text x="84" y="338" fill="#e6edf3" font-size="11" text-anchor="middle" dominant-baseline="central">Blue<tspan font-size="9" fill="#8b949e"> 220°</tspan></text>
+<circle cx="67.5" cy="129.7" r="8" fill="#ff00ff" stroke="#e6edf3" stroke-width="2"/><text x="41" y="116" fill="#e6edf3" font-size="11" text-anchor="middle" dominant-baseline="central">Magenta<tspan font-size="9" fill="#8b949e"> 298°</tspan></text></svg></div>
+
+<p class="meta" style="margin-top:40px">Generated by SpaceForge v0.1.0</p>
+</body>
+</html>

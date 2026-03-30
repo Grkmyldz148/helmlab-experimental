@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helmlab v14 — Loss Analysis</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --bg-card: #16213e;
+    --bg-card-alt: #0f3460;
+    --accent: #e94560;
+    --accent2: #53a8b6;
+    --text: #e0e0e0;
+    --text-dim: #8899aa;
+    --text-bright: #ffffff;
+    --green: #4ecca3;
+    --yellow: #f0c040;
+    --red: #e94560;
+    --orange: #f08c00;
+    --blue: #5393fe;
+    --radius: 12px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  .page-header {
+    background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 50%, #16213e 100%);
+    border-bottom: 1px solid rgba(233,69,96,0.3);
+    padding: 48px 32px 40px;
+    text-align: center;
+  }
+
+  .page-header h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--text-bright);
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .page-header h1 span { color: var(--accent); }
+
+  .page-header .subtitle {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px 32px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .card h2 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-bright);
+  }
+
+  .card .card-desc {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+
+  /* ===== Summary Stats ===== */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+
+  .stat-box {
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .stat-box .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .stat-box .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+
+  .stat-value.green { color: var(--green); }
+  .stat-value.red { color: var(--red); }
+  .stat-value.yellow { color: var(--yellow); }
+  .stat-value.blue { color: var(--blue); }
+
+  /* ===== Bar Chart ===== */
+  .chart-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 100px;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .chart-row:last-child { border-bottom: none; }
+
+  .chart-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: right;
+    padding-right: 8px;
+  }
+
+  .chart-bars {
+    position: relative;
+    height: 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .bar-track {
+    height: 14px;
+    border-radius: 7px;
+    position: relative;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 7px;
+    min-width: 2px;
+    transition: width 0.6s ease;
+  }
+
+  .bar-fill.helmlab { background: linear-gradient(90deg, #e94560, #ff6b81); }
+  .bar-fill.oklab { background: linear-gradient(90deg, #53a8b6, #7ec8d8); }
+
+  .bar-value-label {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    margin-left: 6px;
+    white-space: nowrap;
+  }
+
+  .chart-severity {
+    text-align: center;
+  }
+
+  .severity-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .severity-badge.negligible { background: rgba(240,192,64,0.15); color: var(--yellow); }
+  .severity-badge.trade-off { background: rgba(233,69,96,0.15); color: var(--red); }
+  .severity-badge.self-ref { background: rgba(78,204,163,0.15); color: var(--green); }
+  .severity-badge.structural { background: rgba(240,140,0,0.15); color: var(--orange); }
+
+  .chart-legend {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 0.82rem;
+  }
+
+  .chart-legend span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .legend-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+  }
+
+  .legend-swatch.helmlab { background: linear-gradient(90deg, #e94560, #ff6b81); }
+  .legend-swatch.oklab { background: linear-gradient(90deg, #53a8b6, #7ec8d8); }
+
+  /* ===== Gradient Strips ===== */
+  .gradient-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .gradient-box {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .gradient-box .gradient-label {
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .gradient-box .gradient-label .space-name {
+    color: var(--text-bright);
+  }
+
+  .gradient-box .gradient-label .midpoint-info {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  .gradient-strip {
+    height: 64px;
+    width: 100%;
+  }
+
+  .gradient-midpoint-marker {
+    display: flex;
+    justify-content: center;
+    padding: 6px 14px 10px;
+    background: rgba(0,0,0,0.2);
+  }
+
+  .midpoint-swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 2px solid rgba(255,255,255,0.2);
+    margin: 0 6px;
+  }
+
+  .midpoint-label {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-align: center;
+    line-height: 1.3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .gradient-note {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    text-align: center;
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  /* ===== CVD Simulation ===== */
+  .cvd-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .cvd-column {
+    text-align: center;
+  }
+
+  .cvd-column h3 {
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+    color: var(--text-bright);
+  }
+
+  .cvd-palette {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+
+  .cvd-swatch {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+  }
+
+  .cvd-swatch .swatch-label {
+    position: absolute;
+    bottom: 2px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.7);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  }
+
+  .cvd-subtitle {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    margin-top: 6px;
+  }
+
+  .cvd-caption {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .cvd-metric {
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .cvd-metric .metric-title {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+
+  .cvd-metric .metric-values {
+    display: flex;
+    gap: 16px;
+    font-size: 0.88rem;
+  }
+
+  .cvd-metric .val-label { color: var(--text-dim); font-size: 0.75rem; }
+  .cvd-metric .val-num { font-weight: 600; }
+
+  /* ===== Primary L Range ===== */
+  .primaries-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .primary-col {
+    text-align: center;
+  }
+
+  .primary-swatch {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    border: 2px solid rgba(255,255,255,0.1);
+  }
+
+  .primary-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 4px;
+  }
+
+  .primary-bars {
+    margin-top: 6px;
+  }
+
+  .primary-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 3px;
+  }
+
+  .primary-bar-label {
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    width: 20px;
+    text-align: right;
+  }
+
+  .primary-bar-track {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .primary-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+
+  .primary-bar-fill.helmlab { background: var(--accent); }
+  .primary-bar-fill.oklab { background: var(--accent2); }
+
+  .primary-bar-val {
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    width: 28px;
+  }
+
+  .range-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .range-box {
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    padding: 16px 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
+
+  .range-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  .range-label-sm {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  /* ===== Section Annotations ===== */
+  .annotation {
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid var(--accent2);
+    padding: 12px 16px;
+    margin-top: 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .annotation strong { color: var(--text); }
+
+  /* ===== Footer ===== */
+  .footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 20px;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    .gradient-pair { grid-template-columns: 1fr; }
+    .cvd-grid { grid-template-columns: 1fr; }
+    .primaries-grid { grid-template-columns: repeat(3, 1fr); }
+    .chart-row { grid-template-columns: 140px 1fr 80px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Helmlab <span>v14</span> — Loss Analysis</h1>
+  <p class="subtitle">
+    12 metrics where Helmlab v14 underperforms OKLab. Breakdown by severity: negligible numerical precision, genuine trade-offs, and self-referential biases.
+  </p>
+</div>
+
+<div class="container">
+
+  <!-- ===== Summary ===== -->
+  <div class="card">
+    <h2>Overview</h2>
+    <p class="card-desc">v14 pipeline: M1 &rarr; dual_cross(d=-0.3, k=1.09 + d2=-0.12, k2=1.146) &rarr; cbrt &rarr; M2 &rarr; hue_rot &rarr; chroma_power(0.86) + chroma_k(0.14) &rarr; L_corr7 &rarr; Lab</p>
+    <div class="summary-grid">
+      <div class="stat-box">
+        <div class="stat-value yellow">12</div>
+        <div class="stat-label">Total Losses</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value yellow">5</div>
+        <div class="stat-label">Negligible (RT precision)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value red">5</div>
+        <div class="stat-label">Genuine Trade-offs</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value green">1</div>
+        <div class="stat-label">Self-referential</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value blue">1</div>
+        <div class="stat-label">Structural</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Bar Chart ===== -->
+  <div class="card">
+    <h2>Loss Comparison Chart</h2>
+    <p class="card-desc">Each bar shows the metric value for both spaces. Lower is better for all metrics except Primary L range (higher = more spread).</p>
+
+    <div class="chart-legend">
+      <span><div class="legend-swatch helmlab"></div> Helmlab v14</span>
+      <span><div class="legend-swatch oklab"></div> OKLab</span>
+    </div>
+
+    <div id="chart-container"></div>
+  </div>
+
+  <!-- ===== Blue-White Gradient ===== -->
+  <div class="card">
+    <h2>Blue &rarr; White Gradient Comparison</h2>
+    <p class="card-desc">The midpoint G/R ratio reveals the hue path through the gradient. OKLab's higher G/R (1.409) shifts through teal; Helmlab v14 (1.076) stays closer to blue/lavender.</p>
+
+    <div class="gradient-pair">
+      <div class="gradient-box">
+        <div class="gradient-label">
+          <span class="space-name">OKLab</span>
+          <span class="midpoint-info">G/R = 1.409</span>
+        </div>
+        <div class="gradient-strip" style="background: linear-gradient(90deg, #0000FF 0%, #3060D0 20%, #70A0FF 50%, #B8D0FF 75%, #FFFFFF 100%);"></div>
+        <div class="gradient-midpoint-marker">
+          <div class="midpoint-label">Midpoint<br><b>#70A0FF</b></div>
+          <div class="midpoint-swatch" style="background: #70A0FF;"></div>
+        </div>
+      </div>
+      <div class="gradient-box">
+        <div class="gradient-label">
+          <span class="space-name">Helmlab v14</span>
+          <span class="midpoint-info">G/R = 1.076</span>
+        </div>
+        <div class="gradient-strip" style="background: linear-gradient(90deg, #0000FF 0%, #4838E8 20%, #8C97FF 50%, #C6CBFF 75%, #FFFFFF 100%);"></div>
+        <div class="gradient-midpoint-marker">
+          <div class="midpoint-label">Midpoint<br><b>#8C97FF</b></div>
+          <div class="midpoint-swatch" style="background: #8C97FF;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annotation">
+      <strong>Observation:</strong> OKLab's blue-to-white path shifts toward cyan/teal at the midpoint, which some users perceive as a hue discontinuity. Helmlab v14's more direct path through lavender is arguably more perceptually linear, but the lower G/R ratio is counted as a "loss" on the Blue midpoint metric.
+    </div>
+  </div>
+
+  <!-- ===== Red-White Gradient ===== -->
+  <div class="card">
+    <h2>Red &rarr; White Gradient Comparison</h2>
+    <p class="card-desc">Midpoint G-B difference shows warmth bias. Both spaces are close here; Helmlab v14's 0.050 is slightly more neutral than OKLab's 0.062.</p>
+
+    <div class="gradient-pair">
+      <div class="gradient-box">
+        <div class="gradient-label">
+          <span class="space-name">OKLab</span>
+          <span class="midpoint-info">G-B = 0.062</span>
+        </div>
+        <div class="gradient-strip" style="background: linear-gradient(90deg, #FF0000 0%, #FF6840 20%, #FFA098 50%, #FFD0CC 75%, #FFFFFF 100%);"></div>
+        <div class="gradient-midpoint-marker">
+          <div class="midpoint-label">Midpoint<br><b>#FFA098</b></div>
+          <div class="midpoint-swatch" style="background: #FFA098;"></div>
+        </div>
+      </div>
+      <div class="gradient-box">
+        <div class="gradient-label">
+          <span class="space-name">Helmlab v14</span>
+          <span class="midpoint-info">G-B = 0.050</span>
+        </div>
+        <div class="gradient-strip" style="background: linear-gradient(90deg, #FF0000 0%, #FF6538 20%, #FFA49E 50%, #FFD2CF 75%, #FFFFFF 100%);"></div>
+        <div class="gradient-midpoint-marker">
+          <div class="midpoint-label">Midpoint<br><b>#FFA49E</b></div>
+          <div class="midpoint-swatch" style="background: #FFA49E;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annotation">
+      <strong>Near-identical:</strong> The red-to-white path is very similar in both spaces. The difference (0.012) is below perceptual threshold for most viewers.
+    </div>
+  </div>
+
+  <!-- ===== CVD Simulation ===== -->
+  <div class="card">
+    <h2>Color Vision Deficiency (CVD) Separability</h2>
+    <p class="card-desc">How well gradients maintain distinguishable colors under protanopia and deuteranopia. Higher separation score = better.</p>
+
+    <div class="cvd-grid">
+      <div class="cvd-column">
+        <h3>Normal Vision</h3>
+        <div class="cvd-palette">
+          <div class="cvd-swatch" style="background: #FF0000;"><span class="swatch-label">R</span></div>
+          <div class="cvd-swatch" style="background: #00FF00;"><span class="swatch-label">G</span></div>
+          <div class="cvd-swatch" style="background: #0000FF;"><span class="swatch-label">B</span></div>
+          <div class="cvd-swatch" style="background: #FFFF00;"><span class="swatch-label">Y</span></div>
+          <div class="cvd-swatch" style="background: #FF00FF;"><span class="swatch-label">M</span></div>
+          <div class="cvd-swatch" style="background: #00FFFF;"><span class="swatch-label">C</span></div>
+          <div class="cvd-swatch" style="background: #FF8800;"><span class="swatch-label">O</span></div>
+          <div class="cvd-swatch" style="background: #8844AA;"><span class="swatch-label">P</span></div>
+        </div>
+        <div class="cvd-subtitle">Full trichromatic</div>
+      </div>
+      <div class="cvd-column">
+        <h3>Protanopia Sim.</h3>
+        <div class="cvd-palette">
+          <div class="cvd-swatch" style="background: #918E00;"><span class="swatch-label">R</span></div>
+          <div class="cvd-swatch" style="background: #D2D700;"><span class="swatch-label">G</span></div>
+          <div class="cvd-swatch" style="background: #0024FF;"><span class="swatch-label">B</span></div>
+          <div class="cvd-swatch" style="background: #FAFA00;"><span class="swatch-label">Y</span></div>
+          <div class="cvd-swatch" style="background: #6A5CFF;"><span class="swatch-label">M</span></div>
+          <div class="cvd-swatch" style="background: #A8E7FF;"><span class="swatch-label">C</span></div>
+          <div class="cvd-swatch" style="background: #C7C200;"><span class="swatch-label">O</span></div>
+          <div class="cvd-swatch" style="background: #4A4DBA;"><span class="swatch-label">P</span></div>
+        </div>
+        <div class="cvd-subtitle">L-cone absent</div>
+      </div>
+      <div class="cvd-column">
+        <h3>Deuteranopia Sim.</h3>
+        <div class="cvd-palette">
+          <div class="cvd-swatch" style="background: #A89000;"><span class="swatch-label">R</span></div>
+          <div class="cvd-swatch" style="background: #CACB00;"><span class="swatch-label">G</span></div>
+          <div class="cvd-swatch" style="background: #0040FF;"><span class="swatch-label">B</span></div>
+          <div class="cvd-swatch" style="background: #F0F000;"><span class="swatch-label">Y</span></div>
+          <div class="cvd-swatch" style="background: #7060F0;"><span class="swatch-label">M</span></div>
+          <div class="cvd-swatch" style="background: #80D0FF;"><span class="swatch-label">C</span></div>
+          <div class="cvd-swatch" style="background: #D0C000;"><span class="swatch-label">O</span></div>
+          <div class="cvd-swatch" style="background: #5050B0;"><span class="swatch-label">P</span></div>
+        </div>
+        <div class="cvd-subtitle">M-cone absent</div>
+      </div>
+    </div>
+
+    <div class="cvd-caption">
+      <div class="cvd-metric">
+        <div class="metric-title">Protan Gradient Separation</div>
+        <div class="metric-values">
+          <div><span class="val-label">v14: </span><span class="val-num" style="color: var(--accent);">0.11</span></div>
+          <div><span class="val-label">OKLab: </span><span class="val-num" style="color: var(--accent2);">0.13</span></div>
+          <div><span class="val-label">Gap: </span><span class="val-num" style="color: var(--yellow);">-15%</span></div>
+        </div>
+      </div>
+      <div class="cvd-metric">
+        <div class="metric-title">Deutan Gradient Separation</div>
+        <div class="metric-values">
+          <div><span class="val-label">v14: </span><span class="val-num" style="color: var(--accent);">0.05</span></div>
+          <div><span class="val-label">OKLab: </span><span class="val-num" style="color: var(--accent2);">0.16</span></div>
+          <div><span class="val-label">Gap: </span><span class="val-num" style="color: var(--red);">-69%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annotation">
+      <strong>Key trade-off:</strong> Helmlab v14's enriched pipeline (hue rotation + chroma power) optimizes for trichromatic gradient quality, but this comes at the cost of reduced color separation under deuteranopia (-69%). The protan loss (-15%) is moderate. This is the most consequential genuine loss.
+    </div>
+  </div>
+
+  <!-- ===== Primary L Range ===== -->
+  <div class="card">
+    <h2>Primary L* Range</h2>
+    <p class="card-desc">Spread of lightness values across the 6 sRGB primaries (R, G, B, C, M, Y). Larger range = more perceptual differentiation.</p>
+
+    <div class="primaries-grid">
+      <div class="primary-col">
+        <div class="primary-swatch" style="background: #FF0000;"></div>
+        <div class="primary-name">Red</div>
+        <div class="primary-bars">
+          <div class="primary-bar-row">
+            <span class="primary-bar-label">v14</span>
+            <div class="primary-bar-track"><div class="primary-bar-fill helmlab" style="width: 54%;"></div></div>
+            <span class="primary-bar-val">0.54</span>
+          </div>
+          <div class="primary-bar-row">
+            <span class="primary-bar-label">OK</span>
+            <div class="primary-bar-track"><div class="primary-bar-fill oklab" style="width: 63%;"></div></div>
+            <span class="primary-bar-val">0.63</span>
+          </div>
+        </div>
+      </div>
+      <div class="primary-col">
+        <div class="primary-swatch" style="background: #00FF00;"></div>
+        <div class="primary-name">Green</div>
+        <div class="primary-bars">
+          <div class="primary-bar-row">
+            <span class="primary-bar-label">v14</span>
+            <div class="primary-bar-track"><div class="primary-bar-fill helmlab" style="width: 85%;"></div></div>
+            <span class="primary-bar-val">0.85</span>
+          </div>
+          <div class="primary-bar-row">
+            <span class="primary-bar-label">OK</span>
+            <div class="primary-bar-track"><div class="primary-bar-fill oklab" style="width: 87%;"></div></div>
+            <span class="primary-bar-val">0.87</span>
+          </div>
+        </div>
+      </div>
+      <div class="primary-col">
+        <div class="primary-swatch" style="background: #0000FF;"></div>
+        <div class="primary-name">Blue</div>
+        <div class="primary-bars">
+          <div class="primary-bar-row">
+            <span class="primary-bar-label">v14</span>
+            <div class="primary-bar-track"><div class="primary-bar-fill helmlab" style="width: 52%;"></div></div>
+            <span class="primary-bar-val">0.52</span>
+          </div>
+          <div class="primary-bar-row">
+            <span class="primary-bar-label">OK</span>
+            <div class="primary-bar-track"><div class="primary-bar-fill oklab" style="width: 37%;"></div></div>
+            <span class="primary-bar-val">0.37</span>
+          </div>
+        </div>
+      </div>
+      <div class="primary-col">
+        <div class="primary-swatch" style="background: #00FFFF;"></div>
+        <div class="primary-name">Cyan</div>
+        <div class="primary-bars">
+          <div class="primary-bar-row">
+            <span class="primary-bar-label">v14</span>
+            <div class="primary-bar-track"><div class="primary-bar-fill helmlab" style="width: 90%;"></div></div>
+            <span class="primary-bar-val">0.90</span>
+          </div>
+          <div class="primary-bar-row">
+            <span class="primary-bar-label">OK</span>
+            <div class="primary-bar-track"><div class="primary-bar-fill oklab" style="width: 91%;"></div></div>
+            <span class="primary-bar-val">0.91</span>
+          </div>
+        </div>
+      </div>
+      <div class="primary-col">
+        <div class="primary-swatch" style="background: #FF00FF;"></div>
+        <div class="primary-name">Magenta</div>
+        <div class="primary-bars">
+          <div class="primary-bar-row">
+            <span class="primary-bar-label">v14</span>
+            <div class="primary-bar-track"><div class="primary-bar-fill helmlab" style="width: 62%;"></div></div>
+            <span class="primary-bar-val">0.62</span>
+          </div>
+          <div class="primary-bar-row">
+            <span class="primary-bar-label">OK</span>
+            <div class="primary-bar-track"><div class="primary-bar-fill oklab" style="width: 70%;"></div></div>
+            <span class="primary-bar-val">0.70</span>
+          </div>
+        </div>
+      </div>
+      <div class="primary-col">
+        <div class="primary-swatch" style="background: #FFFF00;"></div>
+        <div class="primary-name">Yellow</div>
+        <div class="primary-bars">
+          <div class="primary-bar-row">
+            <span class="primary-bar-label">v14</span>
+            <div class="primary-bar-track"><div class="primary-bar-fill helmlab" style="width: 94%;"></div></div>
+            <span class="primary-bar-val">0.94</span>
+          </div>
+          <div class="primary-bar-row">
+            <span class="primary-bar-label">OK</span>
+            <div class="primary-bar-track"><div class="primary-bar-fill oklab" style="width: 97%;"></div></div>
+            <span class="primary-bar-val">0.97</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="range-summary">
+      <div class="range-box">
+        <div class="range-value" style="color: var(--accent);">0.328</div>
+        <div class="range-label-sm">Helmlab v14 — L range (max - min)</div>
+      </div>
+      <div class="range-box">
+        <div class="range-value" style="color: var(--accent2);">0.516</div>
+        <div class="range-label-sm">OKLab — L range (max - min)</div>
+      </div>
+    </div>
+
+    <div class="annotation">
+      <strong>Interpretation:</strong> Helmlab v14's enriched pipeline compresses the lightness range of primaries. Blue is raised (0.52 vs 0.37) and Yellow is slightly lowered (0.94 vs 0.97), reducing the overall spread from 0.516 to 0.328. This is a <strong>structural consequence</strong> of chroma_power and L_corr7 acting together to improve gradient smoothness — a deliberate trade-off.
+    </div>
+  </div>
+
+  <!-- ===== Interpretation ===== -->
+  <div class="card">
+    <h2>Severity Classification</h2>
+    <p class="card-desc">Not all losses are equal. The 12 losses fall into four categories.</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background: rgba(240,192,64,0.08); border: 1px solid rgba(240,192,64,0.2); border-radius: 10px; padding: 16px;">
+        <div style="font-weight: 600; color: var(--yellow); margin-bottom: 6px;">Negligible (5 losses)</div>
+        <div style="font-size: 0.82rem; color: var(--text-dim); line-height: 1.5;">
+          RT sRGB, RT P3, RT Rec.2020, Gray ramp C*, 1000-trip RT — All at 10<sup>-7</sup> to 10<sup>-15</sup> scale. Both spaces are at machine precision; differences are meaningless in practice.
+        </div>
+      </div>
+      <div style="background: rgba(233,69,96,0.08); border: 1px solid rgba(233,69,96,0.2); border-radius: 10px; padding: 16px;">
+        <div style="font-weight: 600; color: var(--red); margin-bottom: 6px;">Genuine Trade-offs (5 losses)</div>
+        <div style="font-size: 0.82rem; color: var(--text-dim); line-height: 1.5;">
+          Gradient CV p95, Primary L range, Blue G/R midpoint, CVD protan, CVD deutan — Real weaknesses tied to the enriched pipeline design. The deuteranopia separation gap (-69%) is the most significant.
+        </div>
+      </div>
+      <div style="background: rgba(78,204,163,0.08); border: 1px solid rgba(78,204,163,0.2); border-radius: 10px; padding: 16px;">
+        <div style="font-weight: 600; color: var(--green); margin-bottom: 6px;">Self-referential (1 loss)</div>
+        <div style="font-size: 0.82rem; color: var(--text-dim); line-height: 1.5;">
+          Munsell V: 0.00 vs 2.80 — Munsell data was computed in CIE Lab / Y<sup>1/3</sup> coordinates. Any space not sharing that basis will score non-zero. This is a bias in the benchmark, not a weakness of v14.
+        </div>
+      </div>
+      <div style="background: rgba(83,147,254,0.08); border: 1px solid rgba(83,147,254,0.2); border-radius: 10px; padding: 16px;">
+        <div style="font-weight: 600; color: var(--blue); margin-bottom: 6px;">Structural (1 loss)</div>
+        <div style="font-size: 0.82rem; color: var(--text-dim); line-height: 1.5;">
+          Hue agreement CIE Lab: 32.6&deg; vs 8.5&deg; — v14 deliberately rotates hue angles away from CIE Lab conventions for better perceptual uniformity. Higher disagreement with CIE Lab is <em>expected</em> behavior.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Helmlab v14 Loss Analysis &mdash; Generated for internal evaluation &mdash; <a href="https://helmlab.space" style="color: var(--accent2); text-decoration: none;">helmlab.space</a>
+</div>
+
+<script>
+// ===== Chart Data =====
+const losses = [
+  {
+    name: "RT sRGB",
+    helmlab: 3.44e-15,
+    oklab: 1.78e-15,
+    severity: "negligible",
+    unit: "",
+    lowerBetter: true,
+    logScale: true,
+  },
+  {
+    name: "RT Display P3",
+    helmlab: 3.55e-15,
+    oklab: 1.78e-15,
+    severity: "negligible",
+    unit: "",
+    lowerBetter: true,
+    logScale: true,
+  },
+  {
+    name: "RT Rec.2020",
+    helmlab: 3.11e-15,
+    oklab: 1.55e-15,
+    severity: "negligible",
+    unit: "",
+    lowerBetter: true,
+    logScale: true,
+  },
+  {
+    name: "Gray Ramp sRGB C*",
+    helmlab: 4.37e-7,
+    oklab: 3.73e-8,
+    severity: "negligible",
+    unit: "",
+    lowerBetter: true,
+    logScale: true,
+  },
+  {
+    name: "1000-trip RT",
+    helmlab: 1.44e-12,
+    oklab: 5.01e-13,
+    severity: "negligible",
+    unit: "",
+    lowerBetter: true,
+    logScale: true,
+  },
+  {
+    name: "Gradient CV p95",
+    helmlab: 142.6,
+    oklab: 137.1,
+    severity: "trade-off",
+    unit: "%",
+    lowerBetter: true,
+    logScale: false,
+  },
+  {
+    name: "Primary L Range",
+    helmlab: 0.328,
+    oklab: 0.516,
+    severity: "structural",
+    unit: "",
+    lowerBetter: false,
+    logScale: false,
+  },
+  {
+    name: "Blue G/R Midpoint",
+    helmlab: 1.076,
+    oklab: 1.409,
+    severity: "trade-off",
+    unit: "",
+    lowerBetter: false,
+    logScale: false,
+  },
+  {
+    name: "CVD Protan",
+    helmlab: 0.11,
+    oklab: 0.13,
+    severity: "trade-off",
+    unit: "",
+    lowerBetter: false,
+    logScale: false,
+  },
+  {
+    name: "CVD Deutan",
+    helmlab: 0.05,
+    oklab: 0.16,
+    severity: "trade-off",
+    unit: "",
+    lowerBetter: false,
+    logScale: false,
+  },
+  {
+    name: "Munsell V",
+    helmlab: 0.00,
+    oklab: 2.80,
+    severity: "self-ref",
+    unit: "°",
+    lowerBetter: true,
+    logScale: false,
+  },
+  {
+    name: "Hue Agree. CIE Lab",
+    helmlab: 32.6,
+    oklab: 8.5,
+    severity: "structural",
+    unit: "°",
+    lowerBetter: true,
+    logScale: false,
+  },
+];
+
+function formatValue(v, logScale) {
+  if (logScale) {
+    if (v === 0) return "0";
+    const exp = Math.floor(Math.log10(Math.abs(v)));
+    const mantissa = v / Math.pow(10, exp);
+    return mantissa.toFixed(2) + "e" + exp;
+  }
+  if (v >= 100) return v.toFixed(1);
+  if (v >= 1) return v.toFixed(2);
+  if (v >= 0.001) return v.toFixed(3);
+  return v.toFixed(2);
+}
+
+function severityLabel(sev) {
+  const labels = {
+    "negligible": "Negligible",
+    "trade-off": "Trade-off",
+    "self-ref": "Self-ref",
+    "structural": "Structural",
+  };
+  return labels[sev] || sev;
+}
+
+const container = document.getElementById("chart-container");
+
+losses.forEach((loss) => {
+  const row = document.createElement("div");
+  row.className = "chart-row";
+
+  // Determine bar widths
+  let helmlabPct, oklabPct;
+  const maxVal = Math.max(loss.helmlab, loss.oklab);
+
+  if (loss.logScale) {
+    // For log-scale values, use log ratio for visual
+    const logH = loss.helmlab > 0 ? Math.log10(loss.helmlab) : -20;
+    const logO = loss.oklab > 0 ? Math.log10(loss.oklab) : -20;
+    const logMin = Math.min(logH, logO);
+    const logMax = Math.max(logH, logO);
+    const range = Math.max(logMax - logMin, 1);
+    // Normalize so the larger one is 90%
+    helmlabPct = 40 + 50 * (logH - logMin) / range;
+    oklabPct = 40 + 50 * (logO - logMin) / range;
+  } else if (maxVal === 0) {
+    helmlabPct = 5;
+    oklabPct = 5;
+  } else {
+    helmlabPct = Math.max(5, (loss.helmlab / maxVal) * 90);
+    oklabPct = Math.max(5, (loss.oklab / maxVal) * 90);
+  }
+
+  // Special case: Munsell V where helmlab is 0
+  if (loss.name === "Munsell V") {
+    helmlabPct = 3;
+    oklabPct = 90;
+  }
+
+  row.innerHTML = `
+    <div class="chart-label">${loss.name}</div>
+    <div class="chart-bars">
+      <div class="bar-track">
+        <div class="bar-fill helmlab" style="width: ${helmlabPct}%;"></div>
+        <span class="bar-value-label">${formatValue(loss.helmlab, loss.logScale)}${loss.unit}</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill oklab" style="width: ${oklabPct}%;"></div>
+        <span class="bar-value-label">${formatValue(loss.oklab, loss.logScale)}${loss.unit}</span>
+      </div>
+    </div>
+    <div class="chart-severity">
+      <span class="severity-badge ${loss.severity}">${severityLabel(loss.severity)}</span>
+    </div>
+  `;
+
+  container.appendChild(row);
+});
+</script>
+
+</body>
+</html>
