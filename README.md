@@ -19,11 +19,9 @@ Every intermediate model saved during optimization. Key checkpoints:
 | `helmlab_v14.json` | 30-12 | cbrt + dual cross-term | Best cbrt pipeline |
 | `v7b_nodelta.json` | 23-14 | cbrt (original) | v0.4.0 production |
 
-### `helmgen-next/` — HelmGen Next experiments (v0.11.0 → v0.11.1)
+### HelmGen Next checkpoints (v0.11.0 → v0.11.1)
 
-The depressed cubic era. Includes AI council sessions, 43 analysis reports, and the systematic optimization that achieved 59-8-16.
-
-#### `helmgen-next/checkpoints/` — 68 checkpoints
+The depressed cubic era checkpoints are in `checkpoints/` alongside the earlier models:
 
 | Checkpoint | Score | Pipeline | Notes |
 |-----------|-------|----------|-------|
@@ -31,31 +29,24 @@ The depressed cubic era. Includes AI council sessions, 43 analysis reports, and 
 | `depcubic_v2_faz2_245.json` | 36-6 / 61m | depcubic + enrichment | Production v0.11.0 |
 | `depcubic_v2_Lgated.json` | 35-7 / 61m | depcubic + L-gated hue | First enrichment breakthrough |
 | `v2_rational_final_10w_3l.json` | 25-13 / 61m | rational transfer | Experimental (bounded derivative) |
-| `v3_m2opt.json` | 24-18 / 61m | CMA-ES M2 reopt | Failed — chroma collapse |
-| `depcubic_best.json` | — | depcubic α=0.015 | Phase 1 baseline |
 
-#### `helmgen-next/reports/` — 43 analysis reports
+### HelmGen Next analysis reports
 
-Systematic documentation of every experiment:
+In `reports/`, files numbered 00–44 document the v0.11.1 optimization:
 
 | Report | Topic |
 |--------|-------|
 | `00_baseline_36-6-19.md` | Starting point verification |
-| `09_v3_discovery.md` | Enrichment was unnecessary for Blue G/R (disproven later) |
 | `10_v3_m2opt_FAILED.md` | M2 chroma collapse analysis |
-| `17_grid_search_results.md` | M1 perturbation — 36 is ceiling |
-| `20_v2_logchroma_FAILED.md` | Log-chroma increases CV |
-| `21_gradient_cv_immovable.md` | Gradient CV is structural |
 | `22_cp097_breakthrough.md` | Chroma power discovery |
 | `26_blue_region_structural_analysis.md` | Blue fold — OKLab 46 holes vs HelmGen 5 |
-| `27_rational_transfer_BREAKTHROUGH.md` | Bounded derivative transfer |
 | `33_FINAL_CEILING_39.md` | 39 WINs ceiling proof (61 metrics) |
-| `35_50_WINS_ACHIEVED.md` | 50 WINs via metric expansion |
-| `36_51_WINS_NEW_RECORD.md` | 51 WINs via parameter fine-tune |
 | `40_59_WINS_FINAL.md` | 59 WINs — final score |
 | `44_model_comparison_final.md` | All models compared on 83 metrics |
 
-#### `helmgen-next/v2/` — v2.0 architecture prototypes
+### HelmGen Next scripts
+
+In `scripts/`, v2 architecture prototypes:
 
 - `rational_transfer.py` — Rational transfer f(x) = x(a+bx)/(1+cx) experiments
 - `fast_eval.py` — Custom fast evaluator (0.6s/eval vs 30s for full ColorBench)
@@ -142,16 +133,12 @@ python run.py oklab helmct --json ../helmgen-next/checkpoints/v2_51wins.json
 ```
 helmlab-experimental/
 ├── README.md
-├── checkpoints/                        # 330+ checkpoints (v0.4.0 → v0.10.0)
-├── scripts/                            # 53 optimization scripts
-├── visualizations/                     # Interactive HTML demos
-└── helmgen-next/                       # HelmGen Next era (v0.11.0 → v0.11.1)
-    ├── checkpoints/                    # 68 checkpoints (depcubic, rational, v2, v3)
-    ├── reports/                        # 43 analysis reports
-    ├── v2/                             # v2.0 prototypes (rational transfer, fast eval)
-    ├── goal.md                         # 40-criteria specification
-    ├── decisions.md                    # Architectural decisions
-    └── *.py                            # Optimization scripts
+├── goal.md                             # 40-criteria "perfect space" specification
+├── decisions.md                        # Architectural decisions log
+├── checkpoints/                        # 398 model checkpoints (v0.4.0 → v0.11.1)
+├── reports/                            # 43+ analysis reports + experiment logs
+├── scripts/                            # 61 optimization scripts + prototypes
+└── visualizations/                     # Interactive HTML demos
 ```
 
 ## Related
